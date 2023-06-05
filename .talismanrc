@@ -1,0 +1,8 @@
+fileignoreconfig:
+- filename: src/vite-env.d.ts
+  checksum: 9c2ae9b11db645629df3b350633cdc6fac8a281a806f39c9c4b817373de19fa2
+- filename: public/vite.svg
+  checksum: 5fe742fa65b1dea8626174e639646dd7665eb5976ae9caa62855bc9bb33aeeb0
+- filename: package-lock.json
+  checksum: 602cd8715c9289ae63908815b90db01fc3a106919fee790b577a8f490b45a20b
+version: ""
