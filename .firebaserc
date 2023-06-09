@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "components-library-test"
-  }
+    "default": "components-library-test",
+    "cl-test": "components-library-test",
+    "cl-prod": "components-library-prod"
+  },
+  "targets": {},
+  "etags": {}
 }
