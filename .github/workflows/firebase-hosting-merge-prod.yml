@@ -16,5 +16,5 @@ jobs:
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_COMPONENTS_LIBRARY_PROD }}"
-          channelId: prod
+          channelId: live
           projectId: components-library-prod
