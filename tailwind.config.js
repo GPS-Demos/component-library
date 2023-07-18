@@ -27,6 +27,7 @@ module.exports = {
           "base-100": "#ffffff",
           "base-200": "#f1f5f9",
           "base-300": "#e2e8f0",
+          "base-400": "#5f6368",
 
           primary: "#4885ed",
           secondary: "#3cba54",

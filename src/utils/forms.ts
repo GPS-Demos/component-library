@@ -1,0 +1,47 @@
+import groupBy from "lodash/groupBy"
+import { IFormVariable, IFormValidationData } from "../utils/types"
+import * as yup from "yup"
+import startCase from "lodash/startCase"
+
+export const groupVariables = (variableList: IFormVariable[]) =>
+  groupBy(variableList, "group")
+
+export const groupByOrderVariables = (variableList: IFormVariable[]) =>
+  groupBy(variableList, "order")
+
+export const initialFormikValues = (variableList: IFormVariable[]) => {
+  let initialFormData = variableList.reduce((formatDefault, formVarsdata) => {
+    const defaultValue = formVarsdata.default !== "" ? formVarsdata.default : ""
+    return { ...formatDefault, [formVarsdata.questionId]: defaultValue }
+  }, {})
+
+  return initialFormData
+}
+
+export const fileNameByPath = (filePath: string) => {
+  if (filePath) {
+    const fileNameArr = filePath.split("/")
+    const fileName = fileNameArr[fileNameArr.length - 1]
+    return fileName
+  } else {
+    return null
+  }
+}
+
+export const formValidationSchema = (variableList: IFormVariable[]) => {
+  let formValidationData: IFormValidationData = {}
+
+  variableList.forEach((variable) => {
+    variable.required
+      ? (formValidationData[variable.questionId] = yup
+          .string()
+          .min(4, "Too Short!")
+          .max(20, "Too Long!")
+          .required(`A value for ${startCase(variable.question)} is required`))
+      : {}
+  })
+
+  const formValidationResult = yup.object().shape(formValidationData)
+
+  return formValidationResult
+}
