@@ -1,9 +1,9 @@
-.css-rc1jbh{
-  background: linear-gradient(180deg, #669DF6 0%, #669DF6 65.89%, #4ECDE6 115%);
+.css-rc1jbh {
+  background: linear-gradient(180deg, #669df6 0%, #669df6 65.89%, #4ecde6 115%);
   padding: 5px;
 }
 .storybook-page {
-  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 24px;
   padding: 48px 20px;
@@ -70,4 +70,8 @@
 
 .storybook-page .tip-wrapper svg path {
   fill: #1ea7fd;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
 }

@@ -46,13 +46,14 @@ const FIELD_TYPE_ENUM = z.enum(FIELD_TYPE)
 // })
 
 export const FormVariable = z.object({
+  name: z.string(),
   questionId: z.number(),
   question: z.string(),
   type: FIELD_TYPE_ENUM,
   description: z.string(),
   default: z.any().optional(),
   required: z.boolean(),
-  validations:z.string().optional(),
+  validations: z.string().optional(),
   group: z.number(),
   order: z.number(),
   suborder: z.number().optional(),

@@ -74,42 +74,35 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
   }
 
   return (
-    <>
-      {Object.keys(groupSortedList).length && (
-        <div className="flex-wrap">
-          {Object.keys(groupSortedList).map((groupSortedListKey, indexItem) => {
-            return (
-              <div className="w-full border border-primary rounded-lg my-2 p-4 ">
-                <label className="text-sm flex gap-1 mb-1">
-                  <div className="rounded-full bg-primary w-5 h-5 text-center text-base-100">
-                    {indexItem + 1}
-                  </div>
-                  {groupSortedList[groupSortedListKey][0].question}
-                </label>
-                {groupSortedList[groupSortedListKey].length > 1 ? (
-                  <div className="w-full sm:flex gap-2">
-                    {groupSortedList[groupSortedListKey].map((variable) => (
-                      <div
-                        className="relative w-full"
-                        key={variable.questionId}
-                      >
-                        {renderControls(variable)}
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  groupSortedList[groupSortedListKey].map((variable) => (
-                    <div className="relative w-full" key={variable.questionId}>
-                      {renderControls(variable)}
-                    </div>
-                  ))
-                )}
+    <div className="flex-wrap">
+      {Object.keys(groupSortedList).map((groupSortedListKey, indexItem) => {
+        return (
+          <div className="w-full border border-primary rounded-lg my-2 p-4 ">
+            <label className="text-sm flex gap-1 mb-1">
+              <div className="rounded-full bg-primary w-5 h-5 text-center text-base-100">
+                {indexItem + 1}
               </div>
-            )
-          })}
-        </div>
-      )}
-    </>
+              {groupSortedList[groupSortedListKey][0].question}
+            </label>
+            {groupSortedList[groupSortedListKey].length > 1 ? (
+              <div className="w-full sm:flex gap-2">
+                {groupSortedList[groupSortedListKey].map((variable) => (
+                  <div className="relative w-full" key={variable.questionId}>
+                    {renderControls(variable)}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              groupSortedList[groupSortedListKey].map((variable) => (
+                <div className="relative w-full" key={variable.questionId}>
+                  {renderControls(variable)}
+                </div>
+              ))
+            )}
+          </div>
+        )
+      })}
+    </div>
   )
 }
 

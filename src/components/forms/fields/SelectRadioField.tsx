@@ -12,10 +12,10 @@ interface ISelectRadioFieldProps {
 
 const SelectRadioField: React.FC<ISelectRadioFieldProps> = ({ variable, handleChange }) => {
   const { values } = useFormikContext<FormikValues>()
-  console.log("Radio",values[variable.questionId])
+  console.log("Radio",values[variable.name])
 
   return (
-    <div className="form-control" key={variable.questionId}>
+    <div className="form-control" key={variable.name}>
       {/* <label htmlFor={variable.name}>{variable.display}</label> */}
       {/* <Field  
       type= "radio"      
@@ -29,11 +29,11 @@ const SelectRadioField: React.FC<ISelectRadioFieldProps> = ({ variable, handleCh
           return (
             <label className={classNames(
               "flex gap-2 rounded-md px-2 py-1 border cursor-pointer",
-              values[variable.questionId]===option?"outline  border-primary":"",
+              values[variable.name]===option?"outline  border-primary":"",
             )}>              
-            <Field type="radio" className="hidden" onChange={handleChange} name={variable.questionId} value={option.oId} />
+            <Field type="radio" className="hidden" onChange={handleChange} name={variable.name} value={option.oId} />
             <span className="w-5 h-5">
-                    {values[variable.questionId]==option.oId ? <span>✔️</span> : <span>⭕</span>}
+                    {values[variable.name]==option.oId ? <span>✔️</span> : <span>⭕</span>}
                   </span>
             {option.value}
           </label>
@@ -42,7 +42,7 @@ const SelectRadioField: React.FC<ISelectRadioFieldProps> = ({ variable, handleCh
         })}
       </div>
       {/* </Field> */}
-      <FieldErrorMessage variableName={variable.questionId} />
+      <FieldErrorMessage variableName={variable.name} />
       <div className="text-faint mt-1 text-sm">{variable.description}</div>
     </div>
   )

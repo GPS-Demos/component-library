@@ -7,6 +7,7 @@ import {
 } from "../../utils/types"
 import { groupVariables } from "../../utils/forms"
 import FieldsCreator from "./FieldsCreator"
+import { FORM_LABEL_DISPLAY_OPTIONS } from "../../utils/data"
 
 interface IFormGeneratorProps {
   formVariables: IFormVariable[]
@@ -14,6 +15,12 @@ interface IFormGeneratorProps {
   formValidationData: IFormValidationData
   handleProgress: Function
   handleCurrentStep: Function
+}
+
+type ITargetName = string
+type ITargetValue = string | number | boolean
+type ITarget = {
+  target: { name: ITargetName; value: ITargetValue }
 }
 
 const FormGenerator: React.FC<IFormGeneratorProps> = ({
@@ -26,15 +33,14 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
   // const { t } = useTranslation()
   const [step, setStep] = useState(0)
   //const [completed, setCompleted] = useState(false)
-  const [changedTarget, setChangedTarget] = useState(null)
+  const [changedTarget, setChangedTarget] = useState<ITarget | null>(null)
   const [showVars, setShowVars] = useState(0)
   const [currentVarsDataAppend, setCurrentVarsDataAppend] = useState<
     IFormVariable[]
   >([])
   const [formValues, setFormValues] = useState<IFormData>()
 
-  const handleChange = (e: any) => {
-    console.log("selectedValue", e)
+  const handleChange = (e: ITarget) => {
     setChangedTarget(e)
   }
 
@@ -52,20 +58,26 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
     (currentVarData) => currentVarData.choosenOption,
   )
 
-  const handleTargetValueChange = (targetName: any, targetValue: any) => {
+  const handleTargetValueChange = (
+    targetName: ITargetName,
+    targetValue: ITargetValue,
+  ) => {
     formatAppendQuestion(targetName, targetValue)
   }
 
-  const handleBlur = (e: any) => {
+  const handleBlur = (e: ITarget) => {
     formatAppendQuestion(e.target.name, e.target.value)
   }
 
-  const formatAppendQuestion = (targetName: any, targetValue: any) => {
+  const formatAppendQuestion = (
+    targetName: ITargetName,
+    targetValue: ITargetValue,
+  ) => {
     if (targetValue) {
       if (currentVarsDataAppend.length < allNonDependsElement.length) {
         const lastVarsAppend =
           currentVarsDataAppend[currentVarsDataAppend.length - 1]
-        if (lastVarsAppend.questionId == targetName) {
+        if (lastVarsAppend.name == targetName) {
           const findSameVars = allNonDependsElement.filter(
             (items) =>
               items.order ===
@@ -80,7 +92,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
         const lastVarsValue =
           formValues !== undefined
             ? formValues[
-                allNonDependsElement[allNonDependsElement.length - 1].questionId
+                allNonDependsElement[allNonDependsElement.length - 1].name
               ]
             : null
         if (lastVarsValue) {
@@ -90,8 +102,11 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
     }
   }
 
-  const changedValueSelect = (changedValueElement: any) => {
+  const changedValueSelect = (changedValueElement: ITarget) => {
     if (changedValueElement) {
+      const changedValueItem = currentVarsDataAppend.find(
+        (selectedItem) => selectedItem.name === changedValueElement.target.name,
+      )
       const findDependentElement = allDependsElement.find(
         (dependsElement) =>
           dependsElement.choosenOption == changedValueElement.target.value,
@@ -101,7 +116,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
           dependsElementExist.choosenOption == changedValueElement.target.value,
       )
       const newAppendFilter = currentVarsDataAppend.filter(
-        (item) => item.primaryId != changedValueElement.target.name,
+        (item) => item.primaryId != changedValueItem?.questionId,
       )
       setCurrentVarsDataAppend(newAppendFilter)
       if (findDependentElement && !checkDependentElementExist) {
@@ -129,7 +144,9 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
   // )
 
   useEffect(() => {
-    changedValueSelect(changedTarget)
+    if (changedTarget) {
+      changedValueSelect(changedTarget)
+    }
   }, [changedTarget])
 
   useEffect(() => {
@@ -204,7 +221,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
                         disabled={isSubmitting}
                         onClick={goBack}
                       >
-                        previous
+                        {FORM_LABEL_DISPLAY_OPTIONS.prevDisplay}
                       </button>
                     ) : (
                       <button
@@ -212,7 +229,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
                         className="btn btn-outline btn-primary w-32"
                         disabled={isSubmitting}
                       >
-                        cancel
+                        {FORM_LABEL_DISPLAY_OPTIONS.cancelDisplay}
                       </button>
                     )}
                     <button
@@ -221,10 +238,10 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
                       disabled={!isValid || isSubmitting}
                     >
                       {isSubmitting
-                        ? "submitting"
+                        ? FORM_LABEL_DISPLAY_OPTIONS.submitLoadingDisplay
                         : isLastStep()
-                        ? "submit"
-                        : "next"}
+                        ? FORM_LABEL_DISPLAY_OPTIONS.submitDisplay
+                        : FORM_LABEL_DISPLAY_OPTIONS.nextDisplay}
                     </button>
                   </div>
                 )}

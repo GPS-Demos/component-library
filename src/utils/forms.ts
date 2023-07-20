@@ -12,7 +12,7 @@ export const groupByOrderVariables = (variableList: IFormVariable[]) =>
 export const initialFormikValues = (variableList: IFormVariable[]) => {
   let initialFormData = variableList.reduce((formatDefault, formVarsdata) => {
     const defaultValue = formVarsdata.default !== "" ? formVarsdata.default : ""
-    return { ...formatDefault, [formVarsdata.questionId]: defaultValue }
+    return { ...formatDefault, [formVarsdata.name]: defaultValue }
   }, {})
 
   return initialFormData
@@ -33,7 +33,7 @@ export const formValidationSchema = (variableList: IFormVariable[]) => {
 
   variableList.forEach((variable) => {
     variable.required
-      ? (formValidationData[variable.questionId] = yup
+      ? (formValidationData[variable.name] = yup
           .string()
           .min(4, "Too Short!")
           .max(20, "Too Long!")

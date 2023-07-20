@@ -1,7 +1,7 @@
 import { ErrorMessage } from "formik"
 
 interface IFieldErrorMessageProps {
-  variableName: string | number
+  variableName: string
 }
 
 const FieldErrorMessage: React.FC<IFieldErrorMessageProps> = ({

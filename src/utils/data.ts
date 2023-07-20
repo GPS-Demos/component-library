@@ -61,6 +61,7 @@ import { IFormVariable } from "../utils/types"
 
 export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
   {
+    name: "firstName",
     questionId: 1,
     question: "First Name",
     type: "string",
@@ -72,6 +73,7 @@ export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
     suborder: 1,
   },
   {
+    name: "lastName",
     questionId: 2,
     question: "Last Name",
     type: "string",
@@ -83,6 +85,7 @@ export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
     suborder: 2,
   },
   {
+    name: "emailId",
     questionId: 3,
     question: "Email",
     type: "string",
@@ -94,6 +97,7 @@ export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
     order: 2,
   },
   {
+    name: "birthDate",
     questionId: 4,
     question: "Date of birth",
     type: "dob",
@@ -105,6 +109,7 @@ export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
     suborder: 1,
   },
   {
+    name: "age",
     questionId: 5,
     question: "Age",
     type: "string",
@@ -116,6 +121,7 @@ export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
     suborder: 2,
   },
   {
+    name: "choseOption",
     questionId: 6,
     question: "Chose from the options",
     type: "selectradio",
@@ -131,6 +137,7 @@ export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
     order: 4,
   },
   {
+    name: "optionYes",
     questionId: 7,
     question: "Question if Yes",
     type: "string",
@@ -143,6 +150,7 @@ export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
     choosenOption: 1,
   },
   {
+    name: "optionNo",
     questionId: 8,
     question: "Question if No",
     type: "string",
@@ -155,6 +163,7 @@ export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
     choosenOption: 2,
   },
   {
+    name: "testBackgroundItem",
     questionId: 9,
     question: "Test Background item",
     type: "string",
@@ -175,3 +184,11 @@ export const FORM_STEPS_TITLE: string[] = [
   "Health",
   "Assistance",
 ]
+
+export const FORM_LABEL_DISPLAY_OPTIONS = {
+  submitDisplay: "Submit",
+  nextDisplay: "Next",
+  prevDisplay: "Previous",
+  cancelDisplay: "Cancel",
+  submitLoadingDisplay: "Submitting",
+}
