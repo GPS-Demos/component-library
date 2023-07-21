@@ -6,17 +6,17 @@ import FieldErrorMessage from "../FieldErrorMessage"
 
 interface IStringFieldProps {
   variable: IFormVariable
-  handleBlur: Function
+  onChangeHandle: Function
 }
 
-const StringField: React.FC<IStringFieldProps> = ({ variable, handleBlur }) => {
+const StringField: React.FC<IStringFieldProps> = ({ variable, onChangeHandle }) => {
   return (
     <div className="form-control" key={variable.name}>
       <Field
         id={variable.name}
         name={variable.name}
         placeholder={variable.question}
-        onBlur={handleBlur}
+        onChange={onChangeHandle}
         className="input input-bordered input-sm"
       />
       <FieldErrorMessage variableName={variable.name} />

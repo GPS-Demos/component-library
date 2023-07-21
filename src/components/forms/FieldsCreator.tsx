@@ -13,11 +13,12 @@ import SelectRadioField from "./fields/SelectRadioField"
 import DateField from "./fields/DateField"
 
 import { useFormikContext, FormikValues } from "formik"
+import { useEffect, useState } from "react"
 
 interface FieldsCreatorProps {
   variableList: IFormVariable[]
   handleChange: Function
-  handleBlur: Function
+  handleChangeInput: Function
   handleValueChange: Function
   handleTargetValueChange: Function
 }
@@ -25,7 +26,7 @@ interface FieldsCreatorProps {
 const FieldsCreator: React.FC<FieldsCreatorProps> = ({
   variableList,
   handleChange,
-  handleBlur,
+  handleChangeInput,
   handleValueChange,
   handleTargetValueChange,
 }) => {
@@ -33,17 +34,35 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
   const groupSortedList = groupByOrderVariables(sortedList)
 
   const { values, setFieldValue } = useFormikContext<FormikValues>()
+  const [timer, setTimer] = useState<any>(null)
+
+  const onChangeHandle = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFieldValue(e.target.name, e.target.value)
+
+    clearTimeout(timer)
+    if (e.target.value) {
+      const changeTimer = setTimeout(() => {
+        handleChangeInput(e)
+      }, 1000)
+      setTimer(changeTimer)
+    }
+  }
 
   const handleChangeOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFieldValue(e.target.name, e.target.value)
     handleChange(e)
   }
-  handleValueChange(values)
+
+  useEffect(() => {
+    handleValueChange(values)
+  }, [values])
 
   const renderControls = (variable: IFormVariable) => {
     switch (variable.type) {
       case "string":
-        return <StringField variable={variable} handleBlur={handleBlur} />
+        return (
+          <StringField variable={variable} onChangeHandle={onChangeHandle} />
+        )
       // case "number":
       //   return <NumberField variable={variable} />
       // case "bool":
@@ -69,7 +88,9 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
       // case "file":
       //   return <FilesField variable={variable} />
       default:
-        return <StringField variable={variable} handleBlur={handleBlur} />
+        return (
+          <StringField variable={variable} onChangeHandle={onChangeHandle} />
+        )
     }
   }
 
@@ -77,7 +98,10 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
     <div className="flex-wrap">
       {Object.keys(groupSortedList).map((groupSortedListKey, indexItem) => {
         return (
-          <div className="w-full border border-primary rounded-lg my-2 p-4 ">
+          <div
+            key={indexItem}
+            className="w-full border border-primary rounded-lg my-2 p-4 "
+          >
             <label className="text-sm flex gap-1 mb-1">
               <div className="rounded-full bg-primary w-5 h-5 text-center text-base-100">
                 {indexItem + 1}

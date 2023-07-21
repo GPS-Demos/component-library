@@ -33,11 +33,24 @@ export const formValidationSchema = (variableList: IFormVariable[]) => {
 
   variableList.forEach((variable) => {
     variable.required
-      ? (formValidationData[variable.name] = yup
-          .string()
-          .min(4, "Too Short!")
-          .max(20, "Too Long!")
-          .required(`A value for ${startCase(variable.question)} is required`))
+      ? (formValidationData[variable.name] =
+          variable.validations === "email"
+            ? yup
+                .string()
+                .email(`${startCase(variable.question)} must be a valid email`)
+                .required(
+                  `A value for ${startCase(variable.question)} is required`,
+                )
+            : yup
+                .string()
+                .min(4, "Too Short!")
+                .max(
+                  formValidationData[variable.type] === "string" ? 20 : 180,
+                  "Too Long!",
+                )
+                .required(
+                  `A value for ${startCase(variable.question)} is required`,
+                ))
       : {}
   })
 

@@ -5,7 +5,7 @@ import "./page.css"
 import FormGenerator from "../components/forms/FormGenerator"
 
 import { TEST_NESTED_FORM_DATA, FORM_STEPS_TITLE } from "../utils/data"
-import { initialFormikValues, formValidationSchema } from "../utils/forms"
+import { initialFormikValues } from "../utils/forms"
 import { classNames } from "../utils/dom"
 import {
   CheckCircleIcon,
@@ -14,7 +14,7 @@ import {
 
 export const Form: React.FC = () => {
   const initialFormData = initialFormikValues(TEST_NESTED_FORM_DATA)
-  const formValidationData = formValidationSchema(TEST_NESTED_FORM_DATA)
+  //const formValidationData = formValidationSchema(TEST_NESTED_FORM_DATA)
   const [progessValuePercent, setProgessValuePercent] = useState(0)
   const [progessStep, setProgessStep] = useState(0)
 
@@ -64,7 +64,7 @@ export const Form: React.FC = () => {
             <FormGenerator
               formVariables={TEST_NESTED_FORM_DATA}
               initialFormData={initialFormData}
-              formValidationData={formValidationData}
+              //formValidationData={formValidationData}
               handleProgress={handleProgress}
               handleCurrentStep={handleCurrentStep}
             />

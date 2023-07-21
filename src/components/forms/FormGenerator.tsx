@@ -5,14 +5,14 @@ import {
   IFormData,
   IFormValidationData,
 } from "../../utils/types"
-import { groupVariables } from "../../utils/forms"
+import { groupVariables, formValidationSchema } from "../../utils/forms"
 import FieldsCreator from "./FieldsCreator"
 import { FORM_LABEL_DISPLAY_OPTIONS } from "../../utils/data"
 
 interface IFormGeneratorProps {
   formVariables: IFormVariable[]
   initialFormData: IFormData
-  formValidationData: IFormValidationData
+  //formValidationData: IFormValidationData
   handleProgress: Function
   handleCurrentStep: Function
 }
@@ -26,6 +26,7 @@ type ITarget = {
 const FormGenerator: React.FC<IFormGeneratorProps> = ({
   formVariables,
   initialFormData,
+  //formValidationData,
   handleProgress,
   handleCurrentStep,
 }) => {
@@ -47,6 +48,10 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
   const groupedVariableList = groupVariables(formVariables)
   const currentVarsData = groupedVariableList[step + 1]
 
+  const formValidationData: IFormValidationData = formValidationSchema(
+    currentVarsDataAppend,
+  )
+
   // Question append implementation
   const handleValueChange = (values: IFormData) => {
     setFormValues(values)
@@ -65,7 +70,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
     formatAppendQuestion(targetName, targetValue)
   }
 
-  const handleBlur = (e: ITarget) => {
+  const handleChangeInput = (e: ITarget) => {
     formatAppendQuestion(e.target.name, e.target.value)
   }
 
@@ -139,10 +144,6 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
     }
   }
 
-  // const formValidationData: IFormValidationData = formValidationSchema(
-  //   currentVarsDataAppend,
-  // )
-
   useEffect(() => {
     if (changedTarget) {
       changedValueSelect(changedTarget)
@@ -151,19 +152,19 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
 
   useEffect(() => {
     setShowVars(0)
+    handleCurrentStep(step)
     const firstLoadVars = allNonDependsElement.filter(
       (items) => items.order === allNonDependsElement[0].order,
     )
     setCurrentVarsDataAppend(firstLoadVars)
   }, [allNonDependsElement.length, step])
 
-  handleCurrentStep(step)
-
   const stepPercentage = Math.round(
     (showVars / allNonDependsElement.length) * 100,
   )
-
-  handleProgress(stepPercentage)
+  useEffect(() => {
+    handleProgress(stepPercentage)
+  }, [stepPercentage])
 
   function isLastStep() {
     return step === Object.keys(groupedVariableList).length - 1
@@ -193,7 +194,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
           <Formik
             initialValues={initialFormData}
             enableReinitialize={true}
-            //validationSchema={formValidationData}
+            validationSchema={formValidationData}
             onSubmit={async (values, action) => {
               await onSubmit(values, action)
             }}
@@ -205,7 +206,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
                   <FieldsCreator
                     variableList={currentVarsDataAppend}
                     handleChange={handleChange}
-                    handleBlur={handleBlur}
+                    handleChangeInput={handleChangeInput}
                     handleValueChange={handleValueChange}
                     handleTargetValueChange={handleTargetValueChange}
                   />
