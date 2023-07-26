@@ -6,23 +6,28 @@ import FieldErrorMessage from "../FieldErrorMessage"
 
 interface ISelectFieldProps {
   variable: IFormVariable
+  handleChange: Function
 }
 
-const SelectField: React.FC<ISelectFieldProps> = ({ variable }) => {
+const SelectField: React.FC<ISelectFieldProps> = ({
+  variable,
+  handleChange,
+}) => {
   return (
     <div className="form-control" key={variable.name}>
-      <label htmlFor={variable.name}>{variable.display}</label>
+      {/* <label htmlFor={variable.name}>{variable.question}</label> */}
       <Field
         as="select"
         id={variable.name}
         name={variable.name}
-        className="select select-bordered"
+        className="select select-bordered select-sm font-normal"
+        onChange={handleChange}
       >
         <option value="">Select</option>
         {variable.options?.map((option) => {
           return (
-            <option key={option} value={option}>
-              {option}
+            <option key={option.oId} value={option.value}>
+              {option.value}
             </option>
           )
         })}

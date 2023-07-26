@@ -15,7 +15,40 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const SampleForm: Story = {}
+export const Sample: Story = {
+  args: {
+    formType: "sample",
+    title: "All",
+  },
+}
+
+export const Text: Story = {
+  args: {
+    formType: "string",
+    title: "Text",
+  },
+}
+
+export const Select: Story = {
+  args: {
+    formType: "select",
+    title: "Select",
+  },
+}
+
+export const Boolean: Story = {
+  args: {
+    formType: "bool",
+    title: "Boolean",
+  },
+}
+
+export const Radio: Story = {
+  args: {
+    formType: "selectradio",
+    title: "Select Radio",
+  },
+}
 
 // More on interaction testing: https://storybook.js.org/docs/react/writing-tests/interaction-testing
 // export const LoggedIn: Story = {

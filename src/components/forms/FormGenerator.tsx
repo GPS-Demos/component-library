@@ -40,6 +40,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
     IFormVariable[]
   >([])
   const [formValues, setFormValues] = useState<IFormData>()
+  const [countAppendDependent, setCountAppendDependent] = useState(0)
 
   const handleChange = (e: ITarget) => {
     setChangedTarget(e)
@@ -79,21 +80,29 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
     targetValue: ITargetValue,
   ) => {
     if (targetValue) {
-      if (currentVarsDataAppend.length < allNonDependsElement.length) {
+      if (
+        currentVarsDataAppend.length <
+        allNonDependsElement.length + countAppendDependent
+      ) {
         const lastVarsAppend =
           currentVarsDataAppend[currentVarsDataAppend.length - 1]
         if (lastVarsAppend.name == targetName) {
           const findSameVars = allNonDependsElement.filter(
             (items) =>
               items.order ===
-              allNonDependsElement[currentVarsDataAppend.length].order,
+              allNonDependsElement[
+                currentVarsDataAppend.length - countAppendDependent
+              ].order,
           )
           findSameVars.forEach((findSameVar) => {
             currentVarsDataAppend.push(findSameVar)
             setShowVars(showVars + 1)
           })
         }
-      } else if (currentVarsDataAppend.length === allNonDependsElement.length) {
+      } else if (
+        currentVarsDataAppend.length ===
+        allNonDependsElement.length + countAppendDependent
+      ) {
         const lastVarsValue =
           formValues !== undefined
             ? formValues[
@@ -123,23 +132,18 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
       const newAppendFilter = currentVarsDataAppend.filter(
         (item) => item.primaryId != changedValueItem?.questionId,
       )
-      setCurrentVarsDataAppend(newAppendFilter)
+      //setCurrentVarsDataAppend(newAppendFilter)
       if (findDependentElement && !checkDependentElementExist) {
         newAppendFilter.push(findDependentElement)
         setCurrentVarsDataAppend(newAppendFilter)
-
+        setCountAppendDependent(countAppendDependent + 1)
         setShowVars(newAppendFilter.length - 1)
         setChangedTarget(null)
-      } else if (currentVarsDataAppend.length === allNonDependsElement.length) {
-        const lastVarsValue =
-          formValues !== undefined
-            ? formValues[
-                allNonDependsElement[allNonDependsElement.length - 1].questionId
-              ]
-            : null
-        if (lastVarsValue) {
-          setShowVars(currentVarsDataAppend.length)
-        }
+      } else {
+        formatAppendQuestion(
+          changedValueElement.target.name,
+          changedValueElement.target.value,
+        )
       }
     }
   }
@@ -152,6 +156,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
 
   useEffect(() => {
     setShowVars(0)
+    setCountAppendDependent(0)
     handleCurrentStep(step)
     const firstLoadVars = allNonDependsElement.filter(
       (items) => items.order === allNonDependsElement[0].order,
@@ -160,8 +165,11 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
   }, [allNonDependsElement.length, step])
 
   const stepPercentage = Math.round(
-    (showVars / allNonDependsElement.length) * 100,
+    (currentVarsDataAppend.length /
+      (allNonDependsElement.length + countAppendDependent)) *
+      100,
   )
+
   useEffect(() => {
     handleProgress(stepPercentage)
   }, [stepPercentage])

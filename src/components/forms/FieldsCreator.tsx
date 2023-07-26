@@ -5,8 +5,8 @@ import { groupByOrderVariables } from "../../utils/forms"
 
 import StringField from "./fields/StringField"
 // import NumberField from "./fields/NumberField"
-// import BooleanField from "./fields/BooleanField"
-// import SelectField from "./fields/SelectField"
+import BooleanField from "./fields/BooleanField"
+import SelectField from "./fields/SelectField"
 // import ListField from "./fields/ListField"
 //import FilesField from "./fields/FilesField"
 import SelectRadioField from "./fields/SelectRadioField"
@@ -65,10 +65,12 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
         )
       // case "number":
       //   return <NumberField variable={variable} />
-      // case "bool":
-      //   return <BooleanField variable={variable} />
-      // case "select":
-      //   return <SelectField variable={variable} />
+      case "bool":
+        return <BooleanField variable={variable} />
+      case "select":
+        return (
+          <SelectField variable={variable} handleChange={handleChangeOption} />
+        )
       case "selectradio":
         return (
           <SelectRadioField
@@ -100,7 +102,7 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
         return (
           <div
             key={indexItem}
-            className="w-full border border-primary rounded-lg my-2 p-4 "
+            className="w-full border border-primary rounded-lg my-2 p-4 transition ease-in-out delay-150"
           >
             <label className="text-sm flex gap-1 mb-1">
               <div className="rounded-full bg-primary w-5 h-5 text-center text-base-100">
