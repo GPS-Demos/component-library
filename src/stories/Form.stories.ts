@@ -45,8 +45,8 @@ export const Boolean: Story = {
 
 export const Radio: Story = {
   args: {
-    formType: "selectradio",
-    title: "Select Radio",
+    formType: "radio",
+    title: "Radio",
   },
 }
 

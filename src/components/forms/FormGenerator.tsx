@@ -42,9 +42,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
   const [formValues, setFormValues] = useState<IFormData>()
   const [countAppendDependent, setCountAppendDependent] = useState(0)
 
-  const handleChange = (e: ITarget) => {
-    setChangedTarget(e)
-  }
+  const handleChange = (e: ITarget) => setChangedTarget(e)
 
   const groupedVariableList = groupVariables(formVariables)
   const currentVarsData = groupedVariableList[step + 1]
@@ -54,9 +52,8 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
   )
 
   // Question append implementation
-  const handleValueChange = (values: IFormData) => {
-    setFormValues(values)
-  }
+  const handleValueChange = (values: IFormData) => setFormValues(values)
+
   const allNonDependsElement = currentVarsData.filter(
     (currentVarData) => !currentVarData.choosenOption,
   )
@@ -79,39 +76,41 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
     targetName: ITargetName,
     targetValue: ITargetValue,
   ) => {
-    if (targetValue) {
-      if (
-        currentVarsDataAppend.length <
-        allNonDependsElement.length + countAppendDependent
-      ) {
-        const lastVarsAppend =
-          currentVarsDataAppend[currentVarsDataAppend.length - 1]
-        if (lastVarsAppend.name == targetName) {
-          const findSameVars = allNonDependsElement.filter(
-            (items) =>
-              items.order ===
-              allNonDependsElement[
-                currentVarsDataAppend.length - countAppendDependent
-              ].order,
-          )
-          findSameVars.forEach((findSameVar) => {
-            currentVarsDataAppend.push(findSameVar)
-            setShowVars(showVars + 1)
-          })
-        }
-      } else if (
-        currentVarsDataAppend.length ===
-        allNonDependsElement.length + countAppendDependent
-      ) {
-        const lastVarsValue =
-          formValues !== undefined
-            ? formValues[
-                allNonDependsElement[allNonDependsElement.length - 1].name
-              ]
-            : null
-        if (lastVarsValue) {
-          setShowVars(currentVarsDataAppend.length)
-        }
+    if (!targetValue) {
+      return null
+    }
+
+    if (
+      currentVarsDataAppend.length <
+      allNonDependsElement.length + countAppendDependent
+    ) {
+      const lastVarsAppend =
+        currentVarsDataAppend[currentVarsDataAppend.length - 1]
+      if (lastVarsAppend.name == targetName) {
+        const findSameVars = allNonDependsElement.filter(
+          (items) =>
+            items.order ===
+            allNonDependsElement[
+              currentVarsDataAppend.length - countAppendDependent
+            ].order,
+        )
+        findSameVars.forEach((findSameVar) => {
+          currentVarsDataAppend.push(findSameVar)
+          setShowVars(showVars + 1)
+        })
+      }
+    } else if (
+      currentVarsDataAppend.length ===
+      allNonDependsElement.length + countAppendDependent
+    ) {
+      const lastVarsValue =
+        formValues !== undefined
+          ? formValues[
+              allNonDependsElement[allNonDependsElement.length - 1].name
+            ]
+          : null
+      if (lastVarsValue) {
+        setShowVars(currentVarsDataAppend.length)
       }
     }
   }
@@ -132,8 +131,9 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
       const newAppendFilter = currentVarsDataAppend.filter(
         (item) => item.primaryId != changedValueItem?.questionId,
       )
-      //setCurrentVarsDataAppend(newAppendFilter)
-      if (findDependentElement && !checkDependentElementExist) {
+      if (checkDependentElementExist) {
+        setCurrentVarsDataAppend(newAppendFilter)
+      } else if (findDependentElement && !checkDependentElementExist) {
         newAppendFilter.push(findDependentElement)
         setCurrentVarsDataAppend(newAppendFilter)
         setCountAppendDependent(countAppendDependent + 1)
@@ -186,7 +186,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
     action.setSubmitting(false)
     window.scrollTo(0, 0)
     if (isLastStep()) {
-      // API Call
+      //Here values form submitted data
       console.log(values)
     } else {
       setStep((s) => s + 1)

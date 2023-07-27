@@ -52,7 +52,7 @@ export const Form: React.FC<FormProps> = ({ formType, title }) => {
                   "w-full flex justify-items-center items-center py-2 font-medium",
                   progessStep === index
                     ? "border-b-2 border-primary text-primary"
-                    : "text-base-400",
+                    : "text-grey-inactive",
                   index !== 0 ? "px-6" : "",
                 )}
               >
@@ -62,10 +62,7 @@ export const Form: React.FC<FormProps> = ({ formType, title }) => {
           ))}
         </div>
       )}
-      <div
-        className="w-full min-h-screen flex justify-center p-2 bg-base-300 rounded-lg"
-        style={{ background: "rgba(232, 240, 254, 1)" }}
-      >
+      <div className="w-full min-h-screen flex justify-center p-2 bg-neutral-light rounded-lg">
         <div className="w-full sm:w-4/5 bg-base-100 px-8 py-4 rounded-md">
           <div className="flex justify-between border-b py-1 mb-4">
             <div className="text-md text-slate-500">

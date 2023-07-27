@@ -10,19 +10,18 @@ import "react-datepicker/dist/react-datepicker.css"
 
 interface IDateFieldProps {
   variable: IFormVariable
-  handleTargetValueChange: Function
+  onChangeHandle: Function
 }
 
-const DateField: React.FC<IDateFieldProps> = ({
-  variable,
-  handleTargetValueChange,
-}) => {
+const DateField: React.FC<IDateFieldProps> = ({ variable, onChangeHandle }) => {
   const { setFieldValue } = useFormikContext<FormikValues>()
   const [selectedDate, setSelectedDate] = useState(new Date())
 
+  const ageCovertValue = 3.15576e10
+
   const getAge = (birthDate: Date) =>
     Math.floor(
-      ((new Date() as any) - new Date(birthDate).getTime()) / 3.15576e10,
+      (new Date().getTime() - new Date(birthDate).getTime()) / ageCovertValue,
     )
 
   //TODO: check related item for Age as dynamically
@@ -30,7 +29,7 @@ const DateField: React.FC<IDateFieldProps> = ({
     setSelectedDate(dateValue)
     setFieldValue(variable.name, dateValue)
     setFieldValue("age", getAge(dateValue))
-    handleTargetValueChange("age", dateValue)
+    onChangeHandle("age", dateValue)
   }
 
   return (

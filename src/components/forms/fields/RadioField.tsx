@@ -4,15 +4,16 @@ import { IFormVariable } from "../../../utils/types"
 
 import FieldErrorMessage from "../FieldErrorMessage"
 import { classNames } from "../../../utils/dom"
+import { CheckCircleIcon, StopCircleIcon } from "@heroicons/react/24/outline"
 
-interface ISelectRadioFieldProps {
+interface IRadioFieldProps {
   variable: IFormVariable
-  handleChange: Function
+  onChangeHandle: Function
 }
 
-const SelectRadioField: React.FC<ISelectRadioFieldProps> = ({
+const RadioField: React.FC<IRadioFieldProps> = ({
   variable,
-  handleChange,
+  onChangeHandle,
 }) => {
   const { values } = useFormikContext<FormikValues>()
 
@@ -33,15 +34,19 @@ const SelectRadioField: React.FC<ISelectRadioFieldProps> = ({
               <Field
                 type="radio"
                 className="hidden"
-                onChange={handleChange}
+                onChange={onChangeHandle}
                 name={variable.name}
                 value={option.oId}
               />
               <span className="w-5 h-5">
                 {values[variable.name] == option.oId ? (
-                  <span>✔️</span>
+                  <span>
+                    <CheckCircleIcon className="w-5 h-auto text-success relative top-0.5" />
+                  </span>
                 ) : (
-                  <span>⭕</span>
+                  <span>
+                    <StopCircleIcon className="w-5 h-auto text-error relative top-0.5" />
+                  </span>
                 )}
               </span>
               {option.value}
@@ -49,11 +54,10 @@ const SelectRadioField: React.FC<ISelectRadioFieldProps> = ({
           )
         })}
       </div>
-      {/* </Field> */}
       <FieldErrorMessage variableName={variable.name} />
       <div className="text-faint mt-1 text-sm">{variable.description}</div>
     </div>
   )
 }
 
-export default SelectRadioField
+export default RadioField

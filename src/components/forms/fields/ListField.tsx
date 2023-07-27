@@ -1,5 +1,5 @@
 import { Field, FieldArray } from "formik"
-//import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline"
+import { PlusIcon } from "@heroicons/react/24/outline"
 import { useState } from "react"
 
 import { IFormVariable } from "../../../utils/types"
@@ -9,7 +9,7 @@ interface ListFieldProps {
 }
 
 const ListField: React.FC<ListFieldProps> = ({ variable }) => {
-  const [formFieldValue, setFormFieldValue] = useState(" ")
+  const [formFieldValue, setFormFieldValue] = useState("")
 
   const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormFieldValue(event.target.value)
@@ -39,9 +39,9 @@ const ListField: React.FC<ListFieldProps> = ({ variable }) => {
 
   return (
     <div className="form-control" key={variable.name}>
-      <label htmlFor={variable.name}>{variable.display}</label>
+      <label htmlFor={variable.name}>{variable.question}</label>
       <FieldArray name={variable.name}>
-        {(FieldArrayProps) => {
+        {(FieldArrayProps: any) => {
           const { push, remove, form } = FieldArrayProps
           const { values } = form
           const unique = [...new Set(values[variable.name])]
@@ -50,7 +50,7 @@ const ListField: React.FC<ListFieldProps> = ({ variable }) => {
             <>
               {values[variable.name].map((setvalue: string, index: number) => (
                 <div
-                  key={index}
+                  key={setvalue}
                   className="badge badge-info mt-2 h-auto w-auto py-1 px-2 md:py-1 md:px-4"
                 >
                   <span
@@ -59,11 +59,12 @@ const ListField: React.FC<ListFieldProps> = ({ variable }) => {
                   >
                     {setvalue}
                   </span>
-                  <span onClick={() => remove(index)} className="cursor-pointer">X</span>
-                  {/* <XMarkIcon
+                  <span
                     onClick={() => remove(index)}
-                    className="h-6 w-6 cursor-pointer"
-                  /> */}
+                    className="cursor-pointer"
+                  >
+                    X
+                  </span>
                 </div>
               ))}
               <div className="mt-1 flex w-full">
@@ -79,8 +80,7 @@ const ListField: React.FC<ListFieldProps> = ({ variable }) => {
                   className="btn btn-outline btn-secondary ml-2"
                   onClick={onSetValue(push)}
                 >
-                  Add
-                  {/* <PlusIcon className="h-6 w-6" /> */}
+                  <PlusIcon className="h-6 w-6" />
                 </button>
               </div>
             </>

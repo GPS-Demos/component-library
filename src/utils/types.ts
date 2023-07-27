@@ -7,7 +7,7 @@ const FIELD_TYPE = [
   "select",
   "list(string)",
   "file",
-  "selectradio",
+  "radio",
   "dob",
 ] as const
 

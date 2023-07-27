@@ -6,12 +6,12 @@ import FieldErrorMessage from "../FieldErrorMessage"
 
 interface ISelectFieldProps {
   variable: IFormVariable
-  handleChange: Function
+  onChangeHandle: Function
 }
 
 const SelectField: React.FC<ISelectFieldProps> = ({
   variable,
-  handleChange,
+  onChangeHandle,
 }) => {
   return (
     <div className="form-control" key={variable.name}>
@@ -21,7 +21,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
         id={variable.name}
         name={variable.name}
         className="select select-bordered select-sm font-normal"
-        onChange={handleChange}
+        onChange={onChangeHandle}
       >
         <option value="">Select</option>
         {variable.options?.map((option) => {

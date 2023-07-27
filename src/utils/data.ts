@@ -124,7 +124,7 @@ export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
     name: "choseOption",
     questionId: 6,
     question: "Chose from the options",
-    type: "selectradio",
+    type: "radio",
     description: "",
     default: "",
     required: false,

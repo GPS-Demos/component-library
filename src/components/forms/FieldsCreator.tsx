@@ -9,7 +9,7 @@ import BooleanField from "./fields/BooleanField"
 import SelectField from "./fields/SelectField"
 // import ListField from "./fields/ListField"
 //import FilesField from "./fields/FilesField"
-import SelectRadioField from "./fields/SelectRadioField"
+import RadioField from "./fields/RadioField"
 import DateField from "./fields/DateField"
 
 import { useFormikContext, FormikValues } from "formik"
@@ -34,7 +34,9 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
   const groupSortedList = groupByOrderVariables(sortedList)
 
   const { values, setFieldValue } = useFormikContext<FormikValues>()
-  const [timer, setTimer] = useState<any>(null)
+  const [timer, setTimer] = useState<NodeJS.Timeout>()
+
+  const timeoutTime: number = 1000
 
   const onChangeHandle = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setFieldValue(e.target.name, e.target.value)
@@ -43,7 +45,7 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
     if (e.target.value) {
       const changeTimer = setTimeout(() => {
         handleChangeInput(e)
-      }, 1000)
+      }, timeoutTime)
       setTimer(changeTimer)
     }
   }
@@ -69,20 +71,23 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
         return <BooleanField variable={variable} />
       case "select":
         return (
-          <SelectField variable={variable} handleChange={handleChangeOption} />
-        )
-      case "selectradio":
-        return (
-          <SelectRadioField
+          <SelectField
             variable={variable}
-            handleChange={handleChangeOption}
+            onChangeHandle={handleChangeOption}
+          />
+        )
+      case "radio":
+        return (
+          <RadioField
+            variable={variable}
+            onChangeHandle={handleChangeOption}
           />
         )
       case "dob":
         return (
           <DateField
             variable={variable}
-            handleTargetValueChange={handleTargetValueChange}
+            onChangeHandle={handleTargetValueChange}
           />
         )
       // case "list(string)":
@@ -101,7 +106,7 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
       {Object.keys(groupSortedList).map((groupSortedListKey, indexItem) => {
         return (
           <div
-            key={indexItem}
+            key={groupSortedList[groupSortedListKey][0].questionId}
             className="w-full border border-primary rounded-lg my-2 p-4 transition ease-in-out delay-150"
           >
             <label className="text-sm flex gap-1 mb-1">
