@@ -78,10 +78,7 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
         )
       case "radio":
         return (
-          <RadioField
-            variable={variable}
-            onChangeHandle={handleChangeOption}
-          />
+          <RadioField variable={variable} onChangeHandle={handleChangeOption} />
         )
       case "dob":
         return (
@@ -115,21 +112,13 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
               </div>
               {groupSortedList[groupSortedListKey][0].question}
             </label>
-            {groupSortedList[groupSortedListKey].length > 1 ? (
-              <div className="w-full sm:flex gap-2">
-                {groupSortedList[groupSortedListKey].map((variable) => (
-                  <div className="relative w-full" key={variable.questionId}>
-                    {renderControls(variable)}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              groupSortedList[groupSortedListKey].map((variable) => (
+            <div className="w-full sm:flex gap-2">
+              {groupSortedList[groupSortedListKey].map((variable) => (
                 <div className="relative w-full" key={variable.questionId}>
                   {renderControls(variable)}
                 </div>
-              ))
-            )}
+              ))}
+            </div>
           </div>
         )
       })}
