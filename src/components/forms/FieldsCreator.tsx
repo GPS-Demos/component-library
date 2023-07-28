@@ -11,6 +11,7 @@ import SelectField from "@/components/forms/fields/SelectField"
 //import FilesField from "@/components/forms/fields/FilesField"
 import RadioField from "@/components/forms/fields/RadioField"
 import DateField from "@/components/forms/fields/DateField"
+import MultiSelectField from "@/components/forms/fields/MultiSelectField"
 
 import { useFormikContext, FormikValues } from "formik"
 import { useEffect, useState } from "react"
@@ -55,6 +56,12 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
     handleChange(e)
   }
 
+  const onChangeHandleBoolean = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const changeBoolenValue = values[e.target.name]
+    setFieldValue(e.target.name, !changeBoolenValue)
+    handleChange(e)
+  }
+
   useEffect(() => {
     handleValueChange(values)
   }, [values])
@@ -68,7 +75,12 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
       // case "number":
       //   return <NumberField variable={variable} />
       case "bool":
-        return <BooleanField variable={variable} />
+        return (
+          <BooleanField
+            variable={variable}
+            onChangeHandle={onChangeHandleBoolean}
+          />
+        )
       case "select":
         return (
           <SelectField
@@ -76,6 +88,8 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
             onChangeHandle={handleChangeOption}
           />
         )
+      case "multiselect":
+        return <MultiSelectField variable={variable} />
       case "radio":
         return (
           <RadioField variable={variable} onChangeHandle={handleChangeOption} />

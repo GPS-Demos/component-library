@@ -15,6 +15,7 @@ import {
   CheckCircleIcon,
   ExclamationCircleIcon,
 } from "@heroicons/react/24/outline"
+import { EN_LANG_DATA } from "@/translations/common"
 
 export const Form: React.FC<FormProps> = ({ formType, title }) => {
   const initialFormData = initialFormikValues(TEST_NESTED_FORM_DATA)
@@ -66,7 +67,7 @@ export const Form: React.FC<FormProps> = ({ formType, title }) => {
           <div className="flex justify-between border-b py-1 mb-4">
             <div className="text-md text-slate-500">
               {formType === "sample"
-                ? `${FORM_STEPS_TITLE[progessStep]} Information`
+                ? `${FORM_STEPS_TITLE[progessStep]} ${EN_LANG_DATA.information}`
                 : title}
             </div>
             <div className="text-success">{progessValuePercent}%</div>
@@ -93,13 +94,12 @@ export const Form: React.FC<FormProps> = ({ formType, title }) => {
         </div>
         <div className="w-full sm:w-96 p-4">
           <div className="flex justify-between border-b py-1 items-center">
-            <div className="text-md text-slate-500">Benefits Available</div>
+            <div className="text-md text-slate-500">
+              {EN_LANG_DATA.benefitsAvailable}
+            </div>
             <ExclamationCircleIcon className="w-5 h-5" />
           </div>
-          <p className="text-sm mt-2">
-            Click the arrow to see the benifits that you can avail based on the
-            information provided
-          </p>
+          <p className="text-sm mt-2">{EN_LANG_DATA.benefitsDescription}</p>
         </div>
       </div>
     </div>

@@ -36,6 +36,13 @@ export const Select: Story = {
   },
 }
 
+export const MultiSelect: Story = {
+  args: {
+    formType: "multiselect",
+    title: "Multi Select",
+  },
+}
+
 export const Boolean: Story = {
   args: {
     formType: "bool",

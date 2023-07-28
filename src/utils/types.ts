@@ -5,6 +5,7 @@ const FIELD_TYPE = [
   "number",
   "bool",
   "select",
+  "multiselect",
   "list(string)",
   "file",
   "radio",

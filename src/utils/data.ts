@@ -190,6 +190,22 @@ export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
     order: 8,
   },
   {
+    name: "selectMultiOption",
+    questionId: 11,
+    question: "Select Multiple from the options",
+    type: "multiselect",
+    description: "",
+    default: [],
+    required: false,
+    options: [
+      { oId: 1, value: "Option1" },
+      { oId: 2, value: "Option2" },
+      { oId: 3, value: "Option3" },
+    ],
+    group: 1,
+    order: 9,
+  },
+  {
     name: "testBackgroundItem",
     questionId: 11,
     question: "Test Background item",
