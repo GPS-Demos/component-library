@@ -1,9 +1,9 @@
 import { Field, useFormikContext, FormikValues } from "formik"
 
-import { IFormVariable } from "../../../utils/types"
+import { IFormVariable } from "@/utils/types"
 
-import FieldErrorMessage from "../FieldErrorMessage"
-import { classNames } from "../../../utils/dom"
+import FieldErrorMessage from "@/components/forms/FieldErrorMessage"
+import { classNames } from "@/utils/dom"
 import { CheckCircleIcon, StopCircleIcon } from "@heroicons/react/24/outline"
 
 interface IRadioFieldProps {

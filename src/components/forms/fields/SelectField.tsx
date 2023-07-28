@@ -1,8 +1,8 @@
 import { Field } from "formik"
 
-import { IFormVariable } from "../../../utils/types"
+import { IFormVariable } from "@/utils/types"
 
-import FieldErrorMessage from "../FieldErrorMessage"
+import FieldErrorMessage from "@/components/forms/FieldErrorMessage"
 
 interface ISelectFieldProps {
   variable: IFormVariable

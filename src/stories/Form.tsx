@@ -7,11 +7,10 @@ interface FormProps {
   title: string
 }
 
-import FormGenerator from "../components/forms/FormGenerator"
-
-import { TEST_NESTED_FORM_DATA, FORM_STEPS_TITLE } from "../utils/data"
-import { initialFormikValues } from "../utils/forms"
-import { classNames } from "../utils/dom"
+import FormGenerator from "@/components/forms/FormGenerator"
+import { TEST_NESTED_FORM_DATA, FORM_STEPS_TITLE } from "@/utils/data"
+import { initialFormikValues } from "@/utils/forms"
+import { classNames } from "@/utils/dom"
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,

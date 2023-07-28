@@ -10,7 +10,7 @@ import { useState } from "react"
 import DeleteConfirmModal from "@/components/DeleteConfirmModal"
 import { XMarkIcon } from "@heroicons/react/24/outline"
 
-import { useTranslation } from "next-i18next"
+//import { useTranslation } from "next-i18next"
 
 interface IFilesFieldProps {
   variable: IFormVariable
@@ -24,7 +24,7 @@ type IfileFormat = {
 
 const FilesField: React.FC<IFilesFieldProps> = ({ variable }) => {
   const { setFieldValue, values } = useFormikContext()
-  const { t } = useTranslation()
+  //const { t } = useTranslation()
   const [modal, setModal] = useState(false)
   const [fileData, setFileData] = useState<IfileFormat | null>(null)
   const [loading, setLoading] = useState(false)
@@ -56,7 +56,7 @@ const FilesField: React.FC<IFilesFieldProps> = ({ variable }) => {
     }
   }
 
-  const filesUpload: any[] = []
+  const filesUpload: File[] = []
 
   const handleFiles = ({ files }: { files: FileList; type: string }) => {
     Array.from(files).map(async (file) => {
@@ -85,7 +85,7 @@ const FilesField: React.FC<IFilesFieldProps> = ({ variable }) => {
       loading={loading}
       handleClick={handleClick}
       handleDelete={handleDelete}
-      deleteMessage={t("delete-file")}
+      deleteMessage={"delete-file"}
     />
   )
 
@@ -93,7 +93,7 @@ const FilesField: React.FC<IFilesFieldProps> = ({ variable }) => {
     <>
       <div className="form-control" key={variable.name}>
         <label htmlFor={variable.name}>
-          {variable.display}
+          {variable.question}
           {variable.tooltip && (
             <span
               className="tooltip-top tooltip tooltip-primary relative top-1 left-1"
@@ -105,7 +105,7 @@ const FilesField: React.FC<IFilesFieldProps> = ({ variable }) => {
         </label>
 
         <DocumentUpload
-          label={variable.fileLabel || t("files")}
+          label={variable.fileLabel || "files"}
           type="files"
           multiple={variable.multiple}
           accept={variable.accept}

@@ -1,15 +1,18 @@
 import { Field } from "formik"
 
-import { IFormVariable } from "../../../utils/types"
+import { IFormVariable } from "@/utils/types"
 
-import FieldErrorMessage from "../FieldErrorMessage"
+import FieldErrorMessage from "@/components/forms/FieldErrorMessage"
 
 interface IStringFieldProps {
   variable: IFormVariable
   onChangeHandle: Function
 }
 
-const StringField: React.FC<IStringFieldProps> = ({ variable, onChangeHandle }) => {
+const StringField: React.FC<IStringFieldProps> = ({
+  variable,
+  onChangeHandle,
+}) => {
   return (
     <div className="form-control" key={variable.name}>
       <Field

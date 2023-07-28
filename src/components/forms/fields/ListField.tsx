@@ -2,7 +2,7 @@ import { Field, FieldArray } from "formik"
 import { PlusIcon } from "@heroicons/react/24/outline"
 import { useState } from "react"
 
-import { IFormVariable } from "../../../utils/types"
+import { IFormVariable } from "@/utils/types"
 
 interface ListFieldProps {
   variable: IFormVariable

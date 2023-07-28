@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { useFormikContext, FormikValues } from "formik"
 
-import { IFormVariable } from "../../../utils/types"
+import { IFormVariable } from "@/utils/types"
 
-import FieldErrorMessage from "../FieldErrorMessage"
+import FieldErrorMessage from "@/components/forms/FieldErrorMessage"
 
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"

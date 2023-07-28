@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { Formik, Form } from "formik"
-import {
-  IFormVariable,
-  IFormData,
-  IFormValidationData,
-} from "../../utils/types"
-import { groupVariables, formValidationSchema } from "../../utils/forms"
-import FieldsCreator from "./FieldsCreator"
-import { FORM_LABEL_DISPLAY_OPTIONS } from "../../utils/data"
+import { IFormVariable, IFormData, IFormValidationData } from "@/utils/types"
+import { groupVariables, formValidationSchema } from "@/utils/forms"
+import FieldsCreator from "@/components/forms/FieldsCreator"
+import { FORM_LABEL_DISPLAY_OPTIONS } from "@/utils/data"
 
 interface IFormGeneratorProps {
   formVariables: IFormVariable[]
@@ -136,7 +132,6 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
       } else if (findDependentElement && !checkDependentElementExist) {
         newAppendFilter.push(findDependentElement)
         setCurrentVarsDataAppend(newAppendFilter)
-        setCountAppendDependent(countAppendDependent + 1)
         setShowVars(newAppendFilter.length - 1)
         setChangedTarget(null)
       } else {
@@ -153,6 +148,13 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
       changedValueSelect(changedTarget)
     }
   }, [changedTarget])
+
+  useEffect(() => {
+    const countAppendDependentHas = currentVarsDataAppend.filter(
+      (appendItems) => appendItems.hasOwnProperty("primaryId"),
+    )
+    setCountAppendDependent(countAppendDependentHas.length)
+  }, [currentVarsDataAppend])
 
   useEffect(() => {
     setShowVars(0)

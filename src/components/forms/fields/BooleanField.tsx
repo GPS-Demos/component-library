@@ -1,6 +1,6 @@
 import { Field } from "formik"
 
-import { IFormVariable } from "../../../utils/types"
+import { IFormVariable } from "@/utils/types"
 
 interface BooleanFieldProps {
   variable: IFormVariable
@@ -10,12 +10,6 @@ const BooleanField: React.FC<BooleanFieldProps> = ({ variable }) => {
   return (
     <div className="form-control" key={variable.name}>
       <div className="flex justify-between">
-        {/* <label
-          htmlFor={variable.name}
-          className="text-dim mb-1 text-sm font-semibold tracking-wide"
-        >
-          {variable.question}
-        </label> */}
         <label className="relative mb-5 inline-flex cursor-pointer items-center">
           <Field
             id={variable.name}
