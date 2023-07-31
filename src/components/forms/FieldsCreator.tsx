@@ -14,7 +14,7 @@ import DateField from "@/components/forms/fields/DateField"
 import MultiSelectField from "@/components/forms/fields/MultiSelectField"
 
 import { useFormikContext, FormikValues } from "formik"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
 interface FieldsCreatorProps {
   variableList: IFormVariable[]
@@ -36,6 +36,7 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
 
   const { values, setFieldValue } = useFormikContext<FormikValues>()
   const [timer, setTimer] = useState<NodeJS.Timeout>()
+  const refScroll = useRef<HTMLDivElement>(null)
 
   const timeoutTime: number = 1000
 
@@ -62,9 +63,20 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
     handleChange(e)
   }
 
+  const scrollToLast = () => {
+    const lastChildElement = refScroll.current?.lastElementChild
+    lastChildElement?.scrollIntoView({ behavior: "smooth" })
+  }
+
   useEffect(() => {
     handleValueChange(values)
   }, [values])
+
+  useEffect(() => {
+    if (Object.keys(groupSortedList).length > 1) {
+      scrollToLast()
+    }
+  }, [groupSortedList])
 
   const renderControls = (variable: IFormVariable) => {
     switch (variable.type) {
@@ -116,7 +128,7 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
   }
 
   return (
-    <div className="flex-wrap">
+    <div className="flex-wrap" ref={refScroll}>
       {Object.keys(groupSortedList).map((groupSortedListKey, indexItem) => {
         return (
           <div
