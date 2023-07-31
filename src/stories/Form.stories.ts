@@ -19,6 +19,9 @@ export const Sample: Story = {
   args: {
     formType: "sample",
     title: "All",
+    information: "Information",
+    benefitsAvailable: "Benefits Available",
+    benefitsDescription: "Click the arrow to see the benifits that you can avail based on the information provided",
   },
 }
 

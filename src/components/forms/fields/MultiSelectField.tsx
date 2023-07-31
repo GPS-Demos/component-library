@@ -6,13 +6,17 @@ import FieldErrorMessage from "@/components/forms/FieldErrorMessage"
 
 interface MultiSelectFieldProps {
   variable: IFormVariable
+  selected: string
 }
 
-const MultiSelectField: React.FC<MultiSelectFieldProps> = ({ variable }) => {
+const MultiSelectField: React.FC<MultiSelectFieldProps> = ({
+  variable,
+  selected,
+}) => {
   const { values } = useFormikContext<FormikValues>()
 
-  const isChecked = (value: number) => {   
-    const valueFormat = value.toString();
+  const isChecked = (value: number) => {
+    const valueFormat = value.toString()
     const checkExist = values[variable.name].includes(valueFormat)
     return checkExist
   }
@@ -48,7 +52,7 @@ const MultiSelectField: React.FC<MultiSelectFieldProps> = ({ variable }) => {
                     type="text"
                     placeholder="Select"
                     className="input input-bordered input-sm w-full readonly"
-                    value={`Selected (${values[variable.name].length})`}
+                    value={`${selected} (${values[variable.name].length})`}
                     readOnly
                   />
                   <ul
@@ -67,7 +71,9 @@ const MultiSelectField: React.FC<MultiSelectFieldProps> = ({ variable }) => {
                                 onChange={onSelectValues(FieldArrayProps)}
                                 checked={isChecked(option.oId)}
                               />
-                              <span className="ml-1 relative -top-1">{option.value}</span>
+                              <span className="ml-1 relative -top-1">
+                                {option.value}
+                              </span>
                             </label>
                           </div>
                         </li>

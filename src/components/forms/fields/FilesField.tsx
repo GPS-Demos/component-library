@@ -10,10 +10,11 @@ import { useState } from "react"
 import DeleteConfirmModal from "@/components/DeleteConfirmModal"
 import { XMarkIcon } from "@heroicons/react/24/outline"
 
-//import { useTranslation } from "next-i18next"
-
 interface IFilesFieldProps {
   variable: IFormVariable
+  deleteMessage: string
+  deleteText: string
+  close: string
 }
 
 type IfileFormat = {
@@ -22,9 +23,13 @@ type IfileFormat = {
   fieldName: string
 }
 
-const FilesField: React.FC<IFilesFieldProps> = ({ variable }) => {
+const FilesField: React.FC<IFilesFieldProps> = ({
+  variable,
+  deleteMessage,
+  deleteText,
+  close,
+}) => {
   const { setFieldValue, values } = useFormikContext()
-  //const { t } = useTranslation()
   const [modal, setModal] = useState(false)
   const [fileData, setFileData] = useState<IfileFormat | null>(null)
   const [loading, setLoading] = useState(false)
@@ -76,7 +81,6 @@ const FilesField: React.FC<IFilesFieldProps> = ({ variable }) => {
 
   const handleDelete = async () => {
     setLoading(true)
-    // API call here
   }
 
   const renderModal = () => (
@@ -85,7 +89,9 @@ const FilesField: React.FC<IFilesFieldProps> = ({ variable }) => {
       loading={loading}
       handleClick={handleClick}
       handleDelete={handleDelete}
-      deleteMessage={"delete-file"}
+      deleteMessage={deleteMessage}
+      deleteText={deleteText}
+      close={close}
     />
   )
 

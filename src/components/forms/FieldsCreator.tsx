@@ -86,10 +86,11 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
           <SelectField
             variable={variable}
             onChangeHandle={handleChangeOption}
+            select="Select"
           />
         )
       case "multiselect":
-        return <MultiSelectField variable={variable} />
+        return <MultiSelectField variable={variable} selected="Selected" />
       case "radio":
         return (
           <RadioField variable={variable} onChangeHandle={handleChangeOption} />
@@ -104,7 +105,9 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
       // case "list(string)":
       //   return <ListField variable={variable} />
       // case "file":
-      //   return <FilesField variable={variable} />
+      //   return <FilesField variable={variable}  deleteMessage="Delete file message"
+      // deleteText="Delete"
+      // close="Close" />
       default:
         return (
           <StringField variable={variable} onChangeHandle={onChangeHandle} />

@@ -7,6 +7,8 @@ interface IDeleteConfirmModal {
   handleClick: Function
   handleDelete: Function
   deleteMessage: string
+  deleteText:string
+  close:string
 }
 
 const DeleteConfirmModal: React.FC<IDeleteConfirmModal> = ({
@@ -15,6 +17,8 @@ const DeleteConfirmModal: React.FC<IDeleteConfirmModal> = ({
   handleClick,
   handleDelete,
   deleteMessage,
+  deleteText,
+  close,
 }) => {
   const [modal, setModal] = useState(true)
 
@@ -29,7 +33,7 @@ const DeleteConfirmModal: React.FC<IDeleteConfirmModal> = ({
       />
       <div className="modal">
         <div className="modal-box">
-          <h3 className="text-lg font-bold">delete</h3>
+          <h3 className="text-lg font-bold">{deleteText}</h3>
           <p className="py-4">{deleteMessage}</p>
           <p className="text-md font-normal">{name}</p>
           <div className="modal-action">
@@ -41,7 +45,7 @@ const DeleteConfirmModal: React.FC<IDeleteConfirmModal> = ({
                 type="button"
                 onClick={handleDelete()}
               >
-                delete
+                {deleteText}
               </button>
             )}
             <button
@@ -51,7 +55,7 @@ const DeleteConfirmModal: React.FC<IDeleteConfirmModal> = ({
                 setModal(false), handleClick(false)
               }}
             >
-              close
+              {close}
             </button>
           </div>
         </div>

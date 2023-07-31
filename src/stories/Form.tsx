@@ -5,6 +5,9 @@ import "./page.css"
 interface FormProps {
   formType: string
   title: string
+  information?: string
+  benefitsAvailable?: string
+  benefitsDescription?: string
 }
 
 import FormGenerator from "@/components/forms/FormGenerator"
@@ -15,9 +18,14 @@ import {
   CheckCircleIcon,
   ExclamationCircleIcon,
 } from "@heroicons/react/24/outline"
-import { EN_LANG_DATA } from "@/translations/common"
 
-export const Form: React.FC<FormProps> = ({ formType, title }) => {
+export const Form: React.FC<FormProps> = ({
+  formType,
+  title,
+  information,
+  benefitsAvailable,
+  benefitsDescription,
+}) => {
   const initialFormData = initialFormikValues(TEST_NESTED_FORM_DATA)
   //const formValidationData = formValidationSchema(TEST_NESTED_FORM_DATA)
   const [progessValuePercent, setProgessValuePercent] = useState(0)
@@ -67,7 +75,7 @@ export const Form: React.FC<FormProps> = ({ formType, title }) => {
           <div className="flex justify-between border-b py-1 mb-4">
             <div className="text-md text-slate-500">
               {formType === "sample"
-                ? `${FORM_STEPS_TITLE[progessStep]} ${EN_LANG_DATA.information}`
+                ? `${FORM_STEPS_TITLE[progessStep]} ${information}`
                 : title}
             </div>
             <div className="text-success">{progessValuePercent}%</div>
@@ -79,6 +87,11 @@ export const Form: React.FC<FormProps> = ({ formType, title }) => {
                 initialFormData={initialFormData}
                 handleProgress={handleProgress}
                 handleCurrentStep={handleCurrentStep}
+                submit="Submit"
+                next="Next"
+                previous="Previous"
+                cancel="Cancel"
+                submitting="Submitting"
               />
             ) : FORM_DATA_BY_TYPE.length ? (
               <FormGenerator
@@ -86,6 +99,11 @@ export const Form: React.FC<FormProps> = ({ formType, title }) => {
                 initialFormData={initialFormData}
                 handleProgress={handleProgress}
                 handleCurrentStep={handleCurrentStep}
+                submit="Submit"
+                next="Next"
+                previous="Previous"
+                cancel="Cancel"
+                submitting="Submitting"
               />
             ) : (
               <></>
@@ -94,12 +112,10 @@ export const Form: React.FC<FormProps> = ({ formType, title }) => {
         </div>
         <div className="w-full sm:w-96 p-4">
           <div className="flex justify-between border-b py-1 items-center">
-            <div className="text-md text-slate-500">
-              {EN_LANG_DATA.benefitsAvailable}
-            </div>
+            <div className="text-md text-slate-500">{benefitsAvailable}</div>
             <ExclamationCircleIcon className="w-5 h-5" />
           </div>
-          <p className="text-sm mt-2">{EN_LANG_DATA.benefitsDescription}</p>
+          <p className="text-sm mt-2">{benefitsDescription}</p>
         </div>
       </div>
     </div>

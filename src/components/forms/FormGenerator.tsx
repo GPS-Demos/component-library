@@ -3,7 +3,6 @@ import { Formik, Form } from "formik"
 import { IFormVariable, IFormData, IFormValidationData } from "@/utils/types"
 import { groupVariables, formValidationSchema } from "@/utils/forms"
 import FieldsCreator from "@/components/forms/FieldsCreator"
-import { FORM_LABEL_DISPLAY_OPTIONS } from "@/utils/data"
 
 interface IFormGeneratorProps {
   formVariables: IFormVariable[]
@@ -11,6 +10,11 @@ interface IFormGeneratorProps {
   //formValidationData: IFormValidationData
   handleProgress: Function
   handleCurrentStep: Function
+  submit: string
+  next: string
+  previous: string
+  cancel: string
+  submitting: string
 }
 
 type ITargetName = string
@@ -25,6 +29,11 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
   //formValidationData,
   handleProgress,
   handleCurrentStep,
+  submit,
+  next,
+  previous,
+  cancel,
+  submitting,
 }) => {
   // const navigate = useNavigate()
   // const { t } = useTranslation()
@@ -232,7 +241,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
                         disabled={isSubmitting}
                         onClick={goBack}
                       >
-                        {FORM_LABEL_DISPLAY_OPTIONS.prevDisplay}
+                        {previous}
                       </button>
                     ) : (
                       <button
@@ -240,7 +249,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
                         className="btn btn-outline btn-primary w-32"
                         disabled={isSubmitting}
                       >
-                        {FORM_LABEL_DISPLAY_OPTIONS.cancelDisplay}
+                        {cancel}
                       </button>
                     )}
                     <button
@@ -248,11 +257,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
                       className="btn btn-primary float-right w-32"
                       disabled={!isValid || isSubmitting}
                     >
-                      {isSubmitting
-                        ? FORM_LABEL_DISPLAY_OPTIONS.submitLoadingDisplay
-                        : isLastStep()
-                        ? FORM_LABEL_DISPLAY_OPTIONS.submitDisplay
-                        : FORM_LABEL_DISPLAY_OPTIONS.nextDisplay}
+                      {isSubmitting ? submitting : isLastStep() ? submit : next}
                     </button>
                   </div>
                 )}
