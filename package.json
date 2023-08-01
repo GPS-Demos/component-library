@@ -10,8 +10,14 @@
     "build": "storybook build -o public"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
+    "@types/react-datepicker": "^4.11.2",
+    "formik": "^2.4.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-datepicker": "^4.16.0",
+    "react-dom": "^18.2.0",
+    "yup": "^1.2.0",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.18",
@@ -36,6 +42,7 @@
     "prop-types": "^15.8.1",
     "storybook": "^7.0.18",
     "typescript": "^5.0.2",
-    "vite": "^4.3.9"
+    "vite": "^4.3.9",
+    "vite-tsconfig-paths": "^4.2.0"
   }
 }
