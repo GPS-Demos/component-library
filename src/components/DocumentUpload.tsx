@@ -9,6 +9,13 @@ import Loading from "@/components/Loading"
 
 const defaultAccept = "image/*,.pdf"
 
+enum FileStatus {
+  Pending,
+  Uploading,
+  Success,
+  Failed,
+}
+
 const DocumentUpload = ({
   type,
   label,
@@ -22,22 +29,20 @@ const DocumentUpload = ({
   accept?: string
   multiple?: boolean
 }) => {
-  const [uploading, setUploading] = useState(false)
-  const [uploaded, setUploaded] = useState(false)
-  const [failed, setFailed] = useState(false)
+  const [fileUploadStatus, setFileUploadStatus] = useState<FileStatus>(
+    FileStatus.Pending,
+  )
   const [filesLabel, setFilesLabel] = useState<string | null>(null)
   multiple = multiple ?? false
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files) return
-    setFailed(false)
-    setUploaded(false)
-    setUploading(true)
+    setFileUploadStatus(FileStatus.Uploading)
 
     try {
       await handleFiles({ files, type, label })
-      setUploaded(true)
+      setFileUploadStatus(FileStatus.Success)
 
       setFilesLabel(
         files.length > 1
@@ -45,9 +50,7 @@ const DocumentUpload = ({
           : files[0]?.name ?? "File added",
       )
     } catch (error) {
-      setFailed(true)
-    } finally {
-      setUploading(false)
+      setFileUploadStatus(FileStatus.Failed)
     }
   }
 
@@ -57,28 +60,28 @@ const DocumentUpload = ({
         htmlFor={type}
         className={classNames(
           "flex h-32 w-full cursor-pointer flex-col rounded-md border-4 border-dashed transition",
-          failed
+          fileUploadStatus === FileStatus.Failed
             ? "border-error"
-            : uploaded
+            : fileUploadStatus === FileStatus.Success
             ? "border-success"
             : "text-faint group-hover:text-normal border-base-300",
         )}
       >
         <div className="flex flex-col items-center justify-center pt-7">
-          {failed ? (
+          {fileUploadStatus === FileStatus.Failed ? (
             <ExclamationCircleIcon className="h-10 text-error transition" />
-          ) : uploaded ? (
+          ) : fileUploadStatus === FileStatus.Success ? (
             <CheckCircleIcon className="h-10 text-success transition" />
-          ) : uploading ? (
+          ) : fileUploadStatus === FileStatus.Uploading ? (
             <Loading />
           ) : (
             <CloudArrowUpIcon className="h-10 text-neutral" />
           )}
           <p
             className={classNames(
-              failed
+              fileUploadStatus === FileStatus.Failed
                 ? "text-error"
-                : uploaded
+                : fileUploadStatus === FileStatus.Success
                 ? "text-success"
                 : "text-base-content",
               "pt-1 text-lg font-semibold",
@@ -95,7 +98,7 @@ const DocumentUpload = ({
           accept={accept || defaultAccept}
           onChange={onChange}
           multiple={multiple}
-          disabled={uploading}
+          disabled={fileUploadStatus === FileStatus.Uploading}
         />
       </label>
     </div>

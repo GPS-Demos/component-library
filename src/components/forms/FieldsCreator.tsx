@@ -8,7 +8,7 @@ import StringField from "@/components/forms/fields/StringField"
 import BooleanField from "@/components/forms/fields/BooleanField"
 import SelectField from "@/components/forms/fields/SelectField"
 // import ListField from "@/components/forms/fields/ListField"
-//import FilesField from "@/components/forms/fields/FilesField"
+import FilesField from "@/components/forms/fields/FilesField"
 import RadioField from "@/components/forms/fields/RadioField"
 import DateField from "@/components/forms/fields/DateField"
 import MultiSelectField from "@/components/forms/fields/MultiSelectField"
@@ -102,7 +102,13 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
           />
         )
       case "multiselect":
-        return <MultiSelectField variable={variable} selected="Selected" />
+        return (
+          <MultiSelectField
+            variable={variable}
+            selected="Selected"
+            onChangeHandle={handleTargetValueChange}
+          />
+        )
       case "radio":
         return (
           <RadioField variable={variable} onChangeHandle={handleChangeOption} />
@@ -116,10 +122,15 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
         )
       // case "list(string)":
       //   return <ListField variable={variable} />
-      // case "file":
-      //   return <FilesField variable={variable}  deleteMessage="Delete file message"
-      // deleteText="Delete"
-      // close="Close" />
+      case "file":
+        return (
+          <FilesField
+            variable={variable}
+            deleteMessage="Delete file message"
+            deleteText="Delete"
+            close="Close"
+          />
+        )
       default:
         return (
           <StringField variable={variable} onChangeHandle={onChangeHandle} />

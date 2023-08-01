@@ -121,34 +121,32 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
   }
 
   const changedValueSelect = (changedValueElement: ITarget) => {
-    if (changedValueElement) {
-      const changedValueItem = currentVarsDataAppend.find(
-        (selectedItem) => selectedItem.name === changedValueElement.target.name,
+    const changedValueItem = currentVarsDataAppend.find(
+      (selectedItem) => selectedItem.name === changedValueElement.target.name,
+    )
+    const findDependentElement = allDependsElement.find(
+      (dependsElement) =>
+        dependsElement.choosenOption == changedValueElement.target.value,
+    )
+    const checkDependentElementExist = currentVarsDataAppend.find(
+      (dependsElementExist) =>
+        dependsElementExist.choosenOption == changedValueElement.target.value,
+    )
+    const newAppendFilter = currentVarsDataAppend.filter(
+      (item) => item.primaryId != changedValueItem?.questionId,
+    )
+    if (checkDependentElementExist) {
+      setCurrentVarsDataAppend(newAppendFilter)
+    } else if (findDependentElement && !checkDependentElementExist) {
+      newAppendFilter.push(findDependentElement)
+      setCurrentVarsDataAppend(newAppendFilter)
+      setShowVars(newAppendFilter.length - 1)
+      setChangedTarget(null)
+    } else {
+      formatAppendQuestion(
+        changedValueElement.target.name,
+        changedValueElement.target.value,
       )
-      const findDependentElement = allDependsElement.find(
-        (dependsElement) =>
-          dependsElement.choosenOption == changedValueElement.target.value,
-      )
-      const checkDependentElementExist = currentVarsDataAppend.find(
-        (dependsElementExist) =>
-          dependsElementExist.choosenOption == changedValueElement.target.value,
-      )
-      const newAppendFilter = currentVarsDataAppend.filter(
-        (item) => item.primaryId != changedValueItem?.questionId,
-      )
-      if (checkDependentElementExist) {
-        setCurrentVarsDataAppend(newAppendFilter)
-      } else if (findDependentElement && !checkDependentElementExist) {
-        newAppendFilter.push(findDependentElement)
-        setCurrentVarsDataAppend(newAppendFilter)
-        setShowVars(newAppendFilter.length - 1)
-        setChangedTarget(null)
-      } else {
-        formatAppendQuestion(
-          changedValueElement.target.name,
-          changedValueElement.target.value,
-        )
-      }
     }
   }
 
@@ -197,7 +195,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
     action.setSubmitting(false)
     window.scrollTo(0, 0)
     if (isLastStep()) {
-      //Here values form submitted data
+      //Here goes form submit functionalities
       console.log(values)
     } else {
       setStep((s) => s + 1)

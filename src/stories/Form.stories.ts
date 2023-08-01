@@ -21,7 +21,8 @@ export const Sample: Story = {
     title: "All",
     information: "Information",
     benefitsAvailable: "Benefits Available",
-    benefitsDescription: "Click the arrow to see the benifits that you can avail based on the information provided",
+    benefitsDescription:
+      "Click the arrow to see the benifits that you can avail based on the information provided",
   },
 }
 
@@ -57,6 +58,13 @@ export const Radio: Story = {
   args: {
     formType: "radio",
     title: "Radio",
+  },
+}
+
+export const FileUpload: Story = {
+  args: {
+    formType: "file",
+    title: "File Upload",
   },
 }
 

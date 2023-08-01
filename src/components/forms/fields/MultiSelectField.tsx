@@ -1,4 +1,9 @@
-import { FieldArray, useFormikContext, FormikValues } from "formik"
+import {
+  FieldArray,
+  useFormikContext,
+  FormikValues,
+  FieldArrayRenderProps,
+} from "formik"
 
 import { IFormVariable } from "@/utils/types"
 
@@ -6,40 +11,42 @@ import FieldErrorMessage from "@/components/forms/FieldErrorMessage"
 
 interface MultiSelectFieldProps {
   variable: IFormVariable
+  onChangeHandle: Function
   selected: string
 }
 
 const MultiSelectField: React.FC<MultiSelectFieldProps> = ({
   variable,
+  onChangeHandle,
   selected,
 }) => {
   const { values } = useFormikContext<FormikValues>()
 
-  const isChecked = (value: number) => {
-    const valueFormat = value.toString()
-    const checkExist = values[variable.name].includes(valueFormat)
-    return checkExist
-  }
+  const isChecked = (value: number) =>
+    values[variable.name].includes(value.toString())
+
   const onSelectValues =
-    (FieldArrayProps: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    (FieldFormikProps: FieldArrayRenderProps) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       const selectedId = event.target.getAttribute("data-id")
       event.preventDefault()
       const selectedType = event.target.checked
-      const { push, remove } = FieldArrayProps
+      const { push, remove } = FieldFormikProps
       if (selectedId && selectedType) {
         push(selectedId)
       } else {
         const findIndex = values[variable.name].indexOf(selectedId)
         remove(findIndex)
       }
+      onChangeHandle(variable.name, selectedId)
     }
 
   return (
     <div className="form-control" key={variable.name}>
       {/* <label htmlFor={variable.name}>{variable.question}</label> */}
       <FieldArray name={variable.name}>
-        {(FieldArrayProps: any) => {
-          const { form } = FieldArrayProps
+        {(FieldFormikProps: FieldArrayRenderProps) => {
+          const { form } = FieldFormikProps
           const { values } = form
           const unique = [...new Set(values[variable.name])]
           values[variable.name] = unique
@@ -68,7 +75,7 @@ const MultiSelectField: React.FC<MultiSelectFieldProps> = ({
                                 type="checkbox"
                                 className="checkbox checkbox-primary checkbox-sm"
                                 data-id={option.oId}
-                                onChange={onSelectValues(FieldArrayProps)}
+                                onChange={onSelectValues(FieldFormikProps)}
                                 checked={isChecked(option.oId)}
                               />
                               <span className="ml-1 relative -top-1">

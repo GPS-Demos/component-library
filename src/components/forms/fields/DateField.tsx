@@ -1,10 +1,7 @@
 import { useState } from "react"
 import { useFormikContext, FormikValues } from "formik"
-
 import { IFormVariable } from "@/utils/types"
-
 import FieldErrorMessage from "@/components/forms/FieldErrorMessage"
-
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 
@@ -17,11 +14,11 @@ const DateField: React.FC<IDateFieldProps> = ({ variable, onChangeHandle }) => {
   const { setFieldValue } = useFormikContext<FormikValues>()
   const [selectedDate, setSelectedDate] = useState(new Date())
 
-  const ageCovertValue = 3.15576e10
+  const YEAR_IN_MS = 3.15576e10
 
   const getAge = (birthDate: Date) =>
     Math.floor(
-      (new Date().getTime() - new Date(birthDate).getTime()) / ageCovertValue,
+      (new Date().getTime() - new Date(birthDate).getTime()) / YEAR_IN_MS,
     )
 
   //TODO: check related item for Age as dynamically

@@ -1,14 +1,10 @@
 import { Field, ErrorMessage, useFormikContext } from "formik"
-
 import { IFormVariable } from "@/utils/types"
-
-import { InformationCircleIcon } from "@heroicons/react/24/outline"
+import { InformationCircleIcon, XMarkIcon } from "@heroicons/react/24/outline"
 import DocumentUpload from "@/components/DocumentUpload"
-
 import { fileNameByPath } from "@/utils/forms"
 import { useState } from "react"
 import DeleteConfirmModal from "@/components/DeleteConfirmModal"
-import { XMarkIcon } from "@heroicons/react/24/outline"
 
 interface IFilesFieldProps {
   variable: IFormVariable
@@ -17,8 +13,8 @@ interface IFilesFieldProps {
   close: string
 }
 
-type IfileFormat = {
-  fileName: string | null | undefined
+type IFileFormat = {
+  fileName: string | null
   fileURL: string
   fieldName: string
 }
@@ -31,13 +27,13 @@ const FilesField: React.FC<IFilesFieldProps> = ({
 }) => {
   const { setFieldValue, values } = useFormikContext()
   const [modal, setModal] = useState(false)
-  const [fileData, setFileData] = useState<IfileFormat | null>(null)
+  const [fileData, setFileData] = useState<IFileFormat | null>(null)
   const [loading, setLoading] = useState(false)
 
   //@ts-ignore
   const updatedFiles = values[variable.name]
 
-  const fileNameContains: IfileFormat[] = []
+  const fileNameContains: IFileFormat[] = []
   if (updatedFiles) {
     if (Array.isArray(updatedFiles)) {
       updatedFiles.forEach(async (value: string) => {
@@ -61,20 +57,14 @@ const FilesField: React.FC<IFilesFieldProps> = ({
     }
   }
 
-  const filesUpload: File[] = []
-
   const handleFiles = ({ files }: { files: FileList; type: string }) => {
-    Array.from(files).map(async (file) => {
-      filesUpload.push(file)
-    })
-
-    setFieldValue("files", filesUpload)
+    setFieldValue("files", Array.from(files))
     if (variable.required) {
       setFieldValue(variable.name, files[0]?.name)
     }
   }
 
-  const handleClick = (state: boolean, fileData: IfileFormat) => {
+  const handleClick = (state: boolean, fileData: IFileFormat) => {
     setFileData(fileData)
     setModal(state)
   }
@@ -99,7 +89,6 @@ const FilesField: React.FC<IFilesFieldProps> = ({
     <>
       <div className="form-control" key={variable.name}>
         <label htmlFor={variable.name}>
-          {variable.question}
           {variable.tooltip && (
             <span
               className="tooltip-top tooltip tooltip-primary relative top-1 left-1"
@@ -127,7 +116,7 @@ const FilesField: React.FC<IFilesFieldProps> = ({
           <ErrorMessage name={variable.name} />
         </div>
         <div>
-          {fileNameContains.map((value: IfileFormat) => {
+          {fileNameContains.map((value: IFileFormat) => {
             return (
               <div
                 key={value.fileName}
