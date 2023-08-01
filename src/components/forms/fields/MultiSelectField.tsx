@@ -26,12 +26,12 @@ const MultiSelectField: React.FC<MultiSelectFieldProps> = ({
     values[variable.name].includes(value.toString())
 
   const onSelectValues =
-    (FieldFormikProps: FieldArrayRenderProps) =>
+    (fieldArrayProps: FieldArrayRenderProps) =>
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const selectedId = event.target.getAttribute("data-id")
       event.preventDefault()
       const selectedType = event.target.checked
-      const { push, remove } = FieldFormikProps
+      const { push, remove } = fieldArrayProps
       if (selectedId && selectedType) {
         push(selectedId)
       } else {
@@ -45,8 +45,8 @@ const MultiSelectField: React.FC<MultiSelectFieldProps> = ({
     <div className="form-control" key={variable.name}>
       {/* <label htmlFor={variable.name}>{variable.question}</label> */}
       <FieldArray name={variable.name}>
-        {(FieldFormikProps: FieldArrayRenderProps) => {
-          const { form } = FieldFormikProps
+        {(fieldArrayProps: FieldArrayRenderProps) => {
+          const { form } = fieldArrayProps
           const { values } = form
           const unique = [...new Set(values[variable.name])]
           values[variable.name] = unique
@@ -75,7 +75,7 @@ const MultiSelectField: React.FC<MultiSelectFieldProps> = ({
                                 type="checkbox"
                                 className="checkbox checkbox-primary checkbox-sm"
                                 data-id={option.oId}
-                                onChange={onSelectValues(FieldFormikProps)}
+                                onChange={onSelectValues(fieldArrayProps)}
                                 checked={isChecked(option.oId)}
                               />
                               <span className="ml-1 relative -top-1">
