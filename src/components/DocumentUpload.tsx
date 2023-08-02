@@ -35,7 +35,6 @@ const DocumentUpload = ({
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
-    console.log("files", files)
     if (!files) return
     setFileUploadStatus(FileStatus.Uploading)
 
