@@ -12,12 +12,12 @@ const FIELD_TYPE = [
   "dob",
 ] as const
 
-const FIELD_TYPE_ENUM = z.enum(FIELD_TYPE)
+const fieldType = z.enum(FIELD_TYPE)
 
 // export const FormVariable = z.object({
 //   name: z.string(),
 //   display: z.string(),
-//   type: FIELD_TYPE_ENUM,
+//   type: fieldType,
 //   description: z.string(),
 //   default: z.any().optional(),
 //   required: z.boolean(),
@@ -35,7 +35,7 @@ const FIELD_TYPE_ENUM = z.enum(FIELD_TYPE)
 //       z.object({
 //         name: z.string(),
 //         display: z.string(),
-//         type: FIELD_TYPE_ENUM,
+//         type: fieldType,
 //         description: z.string(),
 //         default: z.any().optional(),
 //         required: z.boolean(),
@@ -50,7 +50,7 @@ export const FormVariable = z.object({
   name: z.string(),
   questionId: z.number(),
   question: z.string(),
-  type: FIELD_TYPE_ENUM,
+  type: fieldType,
   description: z.string(),
   default: z.any().optional(),
   required: z.boolean(),
@@ -68,10 +68,10 @@ export const FormVariable = z.object({
       }),
     )
     .optional(),
-    tooltip: z.string().optional(),
-    fileLabel: z.string().optional(),
-    multiple: z.boolean().default(false).optional(),
-    accept: z.string().optional(),
+  tooltip: z.string().optional(),
+  fileLabel: z.string().optional(),
+  multiple: z.boolean().default(false).optional(),
+  accept: z.string().optional(),
 })
 
 //const SubElement = z.object({subelement: z.array(FormVariable) }).optional()
