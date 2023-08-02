@@ -55,7 +55,7 @@ const DocumentUpload = ({
       setFilesLabel(null)
     }
   }
-  console.log("previewURL", previewURL)
+
   return (
     <div className="flex w-full items-center justify-center">
       <label
