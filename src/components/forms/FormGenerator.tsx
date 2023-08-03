@@ -48,9 +48,9 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
   const [countAppendDependent, setCountAppendDependent] = useState(0)
 
   const handleChange = (e: ITarget) => setChangedTarget(e)
-
   const groupedVariableList = groupVariables(formVariables)
-  const currentVarsData = groupedVariableList[step + 1]
+  const currentVarsData =
+    groupedVariableList[Object.keys(groupedVariableList)[step]]
 
   const formValidationData: IFormValidationData = formValidationSchema(
     currentVarsDataAppend,
@@ -133,7 +133,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
         dependsElementExist.choosenOption == changedValueElement.target.value,
     )
     const newAppendFilter = currentVarsDataAppend.filter(
-      (item) => item.primaryId != changedValueItem?.questionId,
+      (item) => item.primaryId != changedValueItem?.name,
     )
     if (checkDependentElementExist) {
       setCurrentVarsDataAppend(newAppendFilter)

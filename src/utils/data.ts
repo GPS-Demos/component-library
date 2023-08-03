@@ -186,9 +186,9 @@ export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
     default: [],
     required: false,
     options: [
-      { display: "1", value: "Option1" },
-      { display: "2", value: "Option2" },
-      { display: "3", value: "Option3" },
+      { display: "Option1", value: 1 },
+      { display: "Option2", value: 2 },
+      { display: "Option3", value: 3 },
     ],
     order: 9,
   },

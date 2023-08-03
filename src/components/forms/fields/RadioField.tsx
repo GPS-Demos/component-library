@@ -29,17 +29,17 @@ const RadioField: React.FC<IRadioFieldProps> = ({
                   ? "outline  border-primary"
                   : "",
               )}
-              key={option.oId}
+              key={option.display}
             >
               <Field
                 type="radio"
                 className="hidden"
                 onChange={onChangeHandle}
                 name={variable.name}
-                value={option.oId}
+                value={option.value}
               />
               <span className="w-5 h-5">
-                {values[variable.name] == option.oId ? (
+                {values[variable.name] == option.value ? (
                   <span>
                     <CheckCircleIcon className="w-5 h-auto text-success relative top-0.5" />
                   </span>
@@ -49,7 +49,7 @@ const RadioField: React.FC<IRadioFieldProps> = ({
                   </span>
                 )}
               </span>
-              {option.value}
+              {option.display}
             </label>
           )
         })}

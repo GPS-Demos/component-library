@@ -88,7 +88,7 @@ const DocumentUpload = ({
               )
             ) : (
               <div className="h-10 relative flex w-full items-center justify-center">
-                <PhotoIcon className="h-12 w-12 grey-inactive" />
+                <PhotoIcon className="h-12 w-12 text-base-300" />
               </div>
             )
           ) : fileUploadStatus === FileStatus.Uploading ? (

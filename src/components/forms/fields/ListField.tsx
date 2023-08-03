@@ -39,7 +39,7 @@ const ListField: React.FC<ListFieldProps> = ({ variable }) => {
 
   return (
     <div className="form-control" key={variable.name}>
-      <label htmlFor={variable.name}>{variable.question}</label>
+      <label htmlFor={variable.name}>{variable.display}</label>
       <FieldArray name={variable.name}>
         {(FieldArrayProps: any) => {
           const { push, remove, form } = FieldArrayProps

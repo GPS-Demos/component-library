@@ -22,8 +22,8 @@ const MultiSelectField: React.FC<MultiSelectFieldProps> = ({
 }) => {
   const { values } = useFormikContext<FormikValues>()
 
-  const isChecked = (value: number) =>
-    values[variable.name].includes(value.toString())
+  const isChecked = (value: unknown) =>
+    values[variable.name].includes(value?.toString())
 
   const onSelectValues =
     (fieldArrayProps: FieldArrayRenderProps) =>
@@ -68,18 +68,18 @@ const MultiSelectField: React.FC<MultiSelectFieldProps> = ({
                   >
                     {variable.options?.map((option) => {
                       return (
-                        <li key={option.oId}>
+                        <li key={option.display}>
                           <div className="form-control">
                             <label className="text-left cursor-pointer">
                               <input
                                 type="checkbox"
                                 className="checkbox checkbox-primary checkbox-sm"
-                                data-id={option.oId}
+                                data-id={option.value}
                                 onChange={onSelectValues(fieldArrayProps)}
-                                checked={isChecked(option.oId)}
+                                checked={isChecked(option.value)}
                               />
                               <span className="ml-1 relative -top-1">
-                                {option.value}
+                                {option.display}
                               </span>
                             </label>
                           </div>

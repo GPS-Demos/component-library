@@ -18,7 +18,7 @@ const StringField: React.FC<IStringFieldProps> = ({
       <Field
         id={variable.name}
         name={variable.name}
-        placeholder={variable.question}
+        placeholder={variable.display}
         onChange={onChangeHandle}
         className="input input-bordered input-sm"
       />

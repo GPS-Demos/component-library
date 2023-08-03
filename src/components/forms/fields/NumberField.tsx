@@ -10,7 +10,7 @@ interface INumberFieldProps {
 const NumberField: React.FC<INumberFieldProps> = ({ variable }) => {
   return (
     <div className="form-control" key={variable.name}>
-      <label htmlFor={variable.name}>{variable.question}</label>
+      <label htmlFor={variable.name}>{variable.display}</label>
       <Field
         type="number"
         id={variable.name}
