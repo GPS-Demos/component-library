@@ -11,8 +11,8 @@ interface FormProps {
 }
 
 import FormGenerator from "@/components/forms/FormGenerator"
-import { TEST_NESTED_FORM_DATA, FORM_STEPS_TITLE } from "@/utils/data"
-import { initialFormikValues } from "@/utils/forms"
+import { TEST_NESTED_FORM_DATA } from "@/utils/data"
+import { initialFormikValues, groupVariables } from "@/utils/forms"
 import { classNames } from "@/utils/dom"
 import {
   CheckCircleIcon,
@@ -30,6 +30,9 @@ export const Form: React.FC<FormProps> = ({
   //const formValidationData = formValidationSchema(TEST_NESTED_FORM_DATA)
   const [progessValuePercent, setProgessValuePercent] = useState(0)
   const [progessStep, setProgessStep] = useState(0)
+
+  const groupedVariableList = groupVariables(TEST_NESTED_FORM_DATA)
+  const FORM_STEPS_TITLE = Object.keys(groupedVariableList)
 
   const FORM_DATA_BY_TYPE = TEST_NESTED_FORM_DATA.filter(
     (SAMPLE_FORM_DATA) => SAMPLE_FORM_DATA.type === formType,
@@ -57,7 +60,7 @@ export const Form: React.FC<FormProps> = ({
             >
               <span
                 className={classNames(
-                  "w-full flex justify-items-center items-center py-2 font-medium",
+                  "w-full flex justify-items-center items-center py-2 font-medium capitalize",
                   progessStep === index
                     ? "border-b-2 border-primary text-primary"
                     : "text-grey-inactive",
@@ -73,7 +76,7 @@ export const Form: React.FC<FormProps> = ({
       <div className="w-full min-h-screen flex justify-center p-2 bg-neutral-light rounded-lg">
         <div className="w-full sm:w-4/5 bg-base-100 px-8 py-4 rounded-md">
           <div className="flex justify-between border-b py-1 mb-4">
-            <div className="text-md text-slate-500">
+            <div className="text-md text-slate-500 capitalize">
               {formType === "sample"
                 ? `${FORM_STEPS_TITLE[progessStep]} ${information}`
                 : title}

@@ -143,18 +143,18 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
       {Object.keys(groupSortedList).map((groupSortedListKey, indexItem) => {
         return (
           <div
-            key={groupSortedList[groupSortedListKey][0].questionId}
+            key={groupSortedList[groupSortedListKey][0].name}
             className="w-full border border-primary rounded-lg my-2 p-4 transition ease-in-out delay-150"
           >
             <label className="text-sm flex gap-1 mb-1">
               <div className="rounded-full bg-primary w-5 h-5 text-center text-base-100">
                 {indexItem + 1}
               </div>
-              {groupSortedList[groupSortedListKey][0].question}
+              {groupSortedList[groupSortedListKey][0].display}
             </label>
             <div className="w-full sm:flex gap-2">
               {groupSortedList[groupSortedListKey].map((variable) => (
-                <div className="relative w-full" key={variable.questionId}>
+                <div className="relative w-full" key={variable.name}>
                   {renderControls(variable)}
                 </div>
               ))}
