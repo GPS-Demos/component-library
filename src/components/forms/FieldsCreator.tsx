@@ -13,8 +13,8 @@ import RadioField from "@/components/forms/fields/RadioField"
 import DateField from "@/components/forms/fields/DateField"
 import MultiSelectField from "@/components/forms/fields/MultiSelectField"
 
-import { useFormikContext, FormikValues } from "formik"
 import { useEffect, useState, useRef } from "react"
+import { FormikContextType } from "formik"
 
 interface FieldsCreatorProps {
   variableList: IFormVariable[]
@@ -22,6 +22,7 @@ interface FieldsCreatorProps {
   handleChangeInput: Function
   handleValueChange: Function
   handleTargetValueChange: Function
+  formikProps: FormikContextType<any>
 }
 
 const FieldsCreator: React.FC<FieldsCreatorProps> = ({
@@ -30,19 +31,18 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
   handleChangeInput,
   handleValueChange,
   handleTargetValueChange,
+  formikProps,
 }) => {
   const sortedList = sortBy(variableList, "order")
   const groupSortedList = groupByOrderVariables(sortedList)
 
-  const { values, setFieldValue } = useFormikContext<FormikValues>()
+  const { values } = formikProps
   const [timer, setTimer] = useState<NodeJS.Timeout>()
   const refScroll = useRef<HTMLDivElement>(null)
 
   const timeoutTime: number = 1000
 
   const onChangeHandle = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFieldValue(e.target.name, e.target.value)
-
     clearTimeout(timer)
     if (e.target.value) {
       const changeTimer = setTimeout(() => {
@@ -50,17 +50,6 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
       }, timeoutTime)
       setTimer(changeTimer)
     }
-  }
-
-  const handleChangeOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFieldValue(e.target.name, e.target.value)
-    handleChange(e)
-  }
-
-  const onChangeHandleBoolean = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const changeBoolenValue = values[e.target.name]
-    setFieldValue(e.target.name, !changeBoolenValue)
-    handleChange(e)
   }
 
   const scrollToLast = () => {
@@ -82,7 +71,11 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
     switch (variable.type) {
       case "string":
         return (
-          <StringField variable={variable} onChangeHandle={onChangeHandle} />
+          <StringField
+            variable={variable}
+            onChangeHandle={onChangeHandle}
+            formikProps={formikProps}
+          />
         )
       // case "number":
       //   return <NumberField variable={variable} />
@@ -90,15 +83,17 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
         return (
           <BooleanField
             variable={variable}
-            onChangeHandle={onChangeHandleBoolean}
+            onChangeHandle={handleChange}
+            formikProps={formikProps}
           />
         )
       case "select":
         return (
           <SelectField
             variable={variable}
-            onChangeHandle={handleChangeOption}
+            onChangeHandle={handleChange}
             select="Select"
+            formikProps={formikProps}
           />
         )
       case "multiselect":
@@ -107,17 +102,23 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
             variable={variable}
             selected="Selected"
             onChangeHandle={handleTargetValueChange}
+            formikProps={formikProps}
           />
         )
       case "radio":
         return (
-          <RadioField variable={variable} onChangeHandle={handleChangeOption} />
+          <RadioField
+            variable={variable}
+            onChangeHandle={handleChange}
+            formikProps={formikProps}
+          />
         )
       case "dob":
         return (
           <DateField
             variable={variable}
             onChangeHandle={handleTargetValueChange}
+            formikProps={formikProps}
           />
         )
       // case "list(string)":
@@ -129,11 +130,16 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
             deleteMessage="Delete file message"
             deleteText="Delete"
             close="Close"
+            formikProps={formikProps}
           />
         )
       default:
         return (
-          <StringField variable={variable} onChangeHandle={onChangeHandle} />
+          <StringField
+            variable={variable}
+            onChangeHandle={onChangeHandle}
+            formikProps={formikProps}
+          />
         )
     }
   }

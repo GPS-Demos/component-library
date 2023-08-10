@@ -1,4 +1,4 @@
-import { Field, ErrorMessage, useFormikContext } from "formik"
+import { Field, ErrorMessage, FormikProvider, FormikContextType } from "formik"
 import { IFormVariable } from "@/utils/types"
 import { InformationCircleIcon, XMarkIcon } from "@heroicons/react/24/outline"
 import DocumentUpload from "@/components/DocumentUpload"
@@ -11,6 +11,7 @@ interface IFilesFieldProps {
   deleteMessage: string
   deleteText: string
   close: string
+  formikProps: FormikContextType<any>
 }
 
 type IFileFormat = {
@@ -24,11 +25,13 @@ const FilesField: React.FC<IFilesFieldProps> = ({
   deleteMessage,
   deleteText,
   close,
+  formikProps,
 }) => {
-  const { setFieldValue, values } = useFormikContext()
   const [modal, setModal] = useState(false)
   const [fileData, setFileData] = useState<IFileFormat | null>(null)
   const [loading, setLoading] = useState(false)
+
+  const { setFieldValue, values } = formikProps
 
   //@ts-ignore
   const updatedFiles = values[variable.name]
@@ -86,7 +89,7 @@ const FilesField: React.FC<IFilesFieldProps> = ({
   )
 
   return (
-    <>
+    <FormikProvider value={formikProps}>
       <div className="form-control" key={variable.name}>
         <label htmlFor={variable.name}>
           {variable.tooltip && (
@@ -134,7 +137,7 @@ const FilesField: React.FC<IFilesFieldProps> = ({
         <div className="text-faint mt-1 text-sm">{variable.description}</div>
         {modal && renderModal()}
       </div>
-    </>
+    </FormikProvider>
   )
 }
 

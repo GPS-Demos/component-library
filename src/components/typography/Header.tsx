@@ -1,7 +1,7 @@
 import { noop } from "../../utils/functions"
 import { classNames } from "../../utils/dom"
 
-interface HeaderProps {
+type HeaderProps = {
   /**
    * The content of the Header
    */

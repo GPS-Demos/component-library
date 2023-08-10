@@ -1,14 +1,30 @@
 {
-  "name": "component-library",
+  "name": "@gps-demos/component-library",
   "private": true,
   "version": "0.0.1",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/component-library.umd.cjs",
+  "module": "./dist/component-library.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/component-library.js",
+      "require": "./dist/component-library.umd.cjs"
+    }
+  },
   "scripts": {
     "dev": "npm run storybook",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "storybook": "storybook dev -p 6006",
-    "build": "storybook build -o public"
+    "build-storybook": "storybook build -o public",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
+  "author": "GPS Demo Team",
+  "license": "ISC",
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@types/react-datepicker": "^4.11.2",
@@ -16,6 +32,7 @@
     "react": "^18.2.0",
     "react-datepicker": "^4.16.0",
     "react-dom": "^18.2.0",
+    "vite-plugin-dts": "^3.5.1",
     "yup": "^1.2.0",
     "zod": "^3.21.4"
   },
@@ -44,5 +61,10 @@
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
     "vite-tsconfig-paths": "^4.2.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "formik": "^2.4.1"
   }
 }
