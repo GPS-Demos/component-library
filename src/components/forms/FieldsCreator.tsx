@@ -52,16 +52,6 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
     }
   }
 
-  // const handleChangeOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   handleChange(e)
-  // }
-
-  // const onChangeHandleBoolean = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const changeBoolenValue = values[e.target.name]
-  //   setFieldValue(e.target.name, !changeBoolenValue)
-  //   handleChange(e)
-  // }
-
   const scrollToLast = () => {
     const lastChildElement = refScroll.current?.lastElementChild
     lastChildElement?.scrollIntoView({ behavior: "smooth" })
