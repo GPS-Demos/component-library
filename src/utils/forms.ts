@@ -1,5 +1,5 @@
 import groupBy from "lodash/groupBy"
-import { IFormVariable, IFormValidationData } from "../utils/types"
+import { IFormVariable, IFormValidationData } from "@/utils/types"
 import * as yup from "yup"
 import startCase from "lodash/startCase"
 

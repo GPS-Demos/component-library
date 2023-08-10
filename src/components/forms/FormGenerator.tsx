@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react"
-import { Formik, Form } from "formik"
+import {
+  Form,
+  useFormik,
+  FormikProvider,
+  FormikValues,
+  FormikHelpers,
+} from "formik"
 import { IFormVariable, IFormData, IFormValidationData } from "@/utils/types"
 import { groupVariables, formValidationSchema } from "@/utils/forms"
 import FieldsCreator from "@/components/forms/FieldsCreator"
@@ -191,7 +197,10 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
     setStep((s) => s - 1)
   }
 
-  const onSubmit = async (values: IFormData, action: any) => {
+  const onSubmit = async (
+    values: FormikValues,
+    action: FormikHelpers<FormikValues>,
+  ) => {
     action.setSubmitting(false)
     window.scrollTo(0, 0)
     if (isLastStep()) {
@@ -204,64 +213,69 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
     }
   }
 
+  const formik = useFormik({
+    initialValues: initialFormData,
+    enableReinitialize: true,
+    validateOnMount: true,
+    validationSchema: formValidationData,
+    onSubmit: async (values, action) => {
+      await onSubmit(values, action)
+    },
+  })
+
   return (
     <div className="w-full">
       {currentVarsDataAppend && (
         <>
-          <Formik
-            initialValues={initialFormData}
-            enableReinitialize={true}
-            validationSchema={formValidationData}
-            onSubmit={async (values, action) => {
-              await onSubmit(values, action)
-            }}
-            validateOnMount
-          >
-            {({ isSubmitting, isValid }) => (
-              <Form autoComplete="on">
-                {currentVarsDataAppend ? (
-                  <FieldsCreator
-                    variableList={currentVarsDataAppend}
-                    handleChange={handleChange}
-                    handleChangeInput={handleChangeInput}
-                    handleValueChange={handleValueChange}
-                    handleTargetValueChange={handleTargetValueChange}
-                  />
-                ) : (
-                  <></>
-                )}
-                {stepPercentage === 100 && (
-                  <div className="flex-row justify-center gap-x-4">
-                    {step > 0 ? (
-                      <button
-                        type="button"
-                        className="btn btn-outline btn-primary w-32"
-                        disabled={isSubmitting}
-                        onClick={goBack}
-                      >
-                        {previous}
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="btn btn-outline btn-primary w-32"
-                        disabled={isSubmitting}
-                      >
-                        {cancel}
-                      </button>
-                    )}
+          <FormikProvider value={formik}>
+            <Form autoComplete="on">
+              {currentVarsDataAppend ? (
+                <FieldsCreator
+                  variableList={currentVarsDataAppend}
+                  handleChange={handleChange}
+                  handleChangeInput={handleChangeInput}
+                  handleValueChange={handleValueChange}
+                  handleTargetValueChange={handleTargetValueChange}
+                  formikProps={formik}
+                />
+              ) : (
+                <></>
+              )}
+              {stepPercentage === 100 && (
+                <div className="flex-row justify-center gap-x-4">
+                  {step > 0 ? (
                     <button
-                      type="submit"
-                      className="btn btn-primary float-right w-32"
-                      disabled={!isValid || isSubmitting}
+                      type="button"
+                      className="btn btn-outline btn-primary w-32"
+                      disabled={formik.isSubmitting}
+                      onClick={goBack}
                     >
-                      {isSubmitting ? submitting : isLastStep() ? submit : next}
+                      {previous}
                     </button>
-                  </div>
-                )}
-              </Form>
-            )}
-          </Formik>
+                  ) : (
+                    <button
+                      type="button"
+                      className="btn btn-outline btn-primary w-32"
+                      disabled={formik.isSubmitting}
+                    >
+                      {cancel}
+                    </button>
+                  )}
+                  <button
+                    type="submit"
+                    className="btn btn-primary float-right w-32"
+                    disabled={!formik.isValid || formik.isSubmitting}
+                  >
+                    {formik.isSubmitting
+                      ? submitting
+                      : isLastStep()
+                      ? submit
+                      : next}
+                  </button>
+                </div>
+              )}
+            </Form>
+          </FormikProvider>
         </>
       )}
     </div>

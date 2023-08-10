@@ -2,7 +2,7 @@ import React, { useState } from "react"
 
 import "./page.css"
 
-interface FormProps {
+type FormProps = {
   formType: string
   title: string
   information?: string
