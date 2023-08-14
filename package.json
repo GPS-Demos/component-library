@@ -20,7 +20,7 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -o public",
-    "build": "tsc && vite build && build-storybook",
+    "build": "tsc && vite build && npm run build-storybook",
     "preview": "vite preview",
     "release": "npm run build && git push --follow-tags && npm publish"
   },
