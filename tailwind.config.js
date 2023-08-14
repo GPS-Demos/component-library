@@ -29,9 +29,11 @@ module.exports = {
           "base-300": "#e2e8f0",
 
           primary: "#4885ed",
+          "primary-content": "#E8F0FE",
           secondary: "#3cba54",
           accent: "#f4c20d",
           neutral: "#0f172a",
+          "neutral-content":"#AEB0B3",
 
           info: "#3b82f6",
           success: "#22c55e",

@@ -1,6 +1,6 @@
 import "./button.css"
 
-interface ButtonProps {
+type ButtonProps = {
   /**
    * Is this the principal call to action on the page?
    */

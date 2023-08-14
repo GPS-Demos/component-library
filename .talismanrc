@@ -1,6 +1,4 @@
 fileignoreconfig:
-- filename: .firebase/hosting.ZGlzdA.cache
-  checksum: 882a7af79f8e93a5639381193b97a0319bdf98826558d2ba0d094b3b90a9466a
-- filename: .firebase/hosting.cHVibGlj.cache
-  checksum: d1edb2b300cd7897d4e841ec9f9ed3d2baee51d30b2b0c743836fe6a6b0aca17
+- filename: package-lock.json
+  checksum: 28c4e01903865a8829771e2c25ab9e6207bfd6200db560f93c1bdb8284e0e0b9
 version: ""
