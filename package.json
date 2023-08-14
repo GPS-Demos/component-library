@@ -24,6 +24,11 @@
     "preview": "vite preview",
     "release": "npm run build && git push --follow-tags && npm publish"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GPS-Demos/component-library.git"
+  },
+  "keywords": [],
   "author": "GPS Demo Team",
   "license": "ISC",
   "dependencies": {
