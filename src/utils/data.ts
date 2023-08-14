@@ -212,7 +212,7 @@ export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
     default: "",
     required: false,
     validations: "email",
-    order: 1,
+    order: 11,
   },
 ]
 
