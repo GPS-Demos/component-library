@@ -125,7 +125,6 @@ export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
     options: [
       { display: "Yes", value: 1 },
       { display: "No", value: 2 },
-      { display: "Unknown", value: null },
     ],
     group: "select",
     order: 4,
@@ -212,7 +211,7 @@ export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
     default: "",
     required: false,
     validations: "email",
-    order: 1,
+    order: 11,
   },
 ]
 
