@@ -3,10 +3,7 @@ module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     // Omit Tailwind colors. Use DaisyUI colors instead
-    colors: {
-      "neutral-light":"#E8F0FE",
-      "grey-inactive": "#AEB0B3",
-    },
+    colors: {},
     extend: {
       maxWidth: {
         "screen-3xl": "1800px",
@@ -29,12 +26,14 @@ module.exports = {
           ...require("daisyui/src/theming/themes")["[data-theme=light]"],
           "base-100": "#ffffff",
           "base-200": "#f1f5f9",
-          "base-300": "#e2e8f0",          
+          "base-300": "#e2e8f0",
 
           primary: "#4885ed",
+          "primary-content": "#E8F0FE",
           secondary: "#3cba54",
           accent: "#f4c20d",
           neutral: "#0f172a",
+          "neutral-content":"#AEB0B3",
 
           info: "#3b82f6",
           success: "#22c55e",

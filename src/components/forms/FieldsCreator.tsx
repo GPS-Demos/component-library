@@ -127,6 +127,7 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
         return (
           <FilesField
             variable={variable}
+            onChangeHandle={handleTargetValueChange}
             deleteMessage="Delete file message"
             deleteText="Delete"
             close="Close"

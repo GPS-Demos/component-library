@@ -8,6 +8,7 @@ import DeleteConfirmModal from "@/components/DeleteConfirmModal"
 
 interface IFilesFieldProps {
   variable: IFormVariable
+  onChangeHandle: Function
   deleteMessage: string
   deleteText: string
   close: string
@@ -22,6 +23,7 @@ type IFileFormat = {
 
 const FilesField: React.FC<IFilesFieldProps> = ({
   variable,
+  onChangeHandle,
   deleteMessage,
   deleteText,
   close,
@@ -62,6 +64,7 @@ const FilesField: React.FC<IFilesFieldProps> = ({
 
   const handleFiles = ({ files }: { files: FileList; type: string }) => {
     setFieldValue("files", Array.from(files))
+    onChangeHandle(variable.name, files[0]?.name)
     if (variable.required) {
       setFieldValue(variable.name, files[0]?.name)
     }
