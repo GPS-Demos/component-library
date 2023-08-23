@@ -29,25 +29,41 @@ module.exports = {
           "base-300": "#e2e8f0",
 
           primary: "#4285F4",
-          "primary-content": "#E8F0FE",
-          "primary-light": "#8AB4F8",
-          "primary-focus": "#1A73E8",
+          ".primary-fade": {
+            "background-color": "#8AB4F8",
+          },
+          ".primary-focus": {
+            "background-color": "#1A73E8",
+          },
           secondary: "#24C1E0",
-          "secondary-light": "#78D9EC",
-          "secondary-focus": "#12B5CB",
+          ".secondary-fade": {
+            "background-color": "#78D9EC",
+          },
+          ".secondary-focus": {
+            "background-color": "#12B5CB",
+          },
           accent: "#D93025",
-          "accent-light": "#FCE8E6",
+          "accent-fade": {
+            "background-color": "#FCE8E6",
+          },
           neutral: "#E8F0FE",
-          "neutral-content": "#AEB0B3",
 
           info: "#1A73E8",
-          "info-light": "#E8F0FE",
+          "info-fade": {
+            "background-color": "#E8F0FE",
+          },
           success: "#1E8E3E",
-          "success-light": "#E6F4EA",
+          "success-fade": {
+            "background-color": "#E6F4EA",
+          },
           warning: "#F9Ab00",
-          "warning-light": "#FEF7E0",
+          "warning-fade": {
+            "background-color": "#FEF7E0",
+          },
           error: "#D93025",
-          "error-light": "#FCE8E6",
+          "error-fade": {
+            "background-color": "#FCE8E6",
+          },
         },
       },
       {
