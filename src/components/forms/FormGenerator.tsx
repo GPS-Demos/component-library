@@ -272,7 +272,6 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
                       ? submit
                       : next}
                   </button>
-                  <h1 className="primary-fade">Hi</h1>
                 </div>
               )}
             </Form>

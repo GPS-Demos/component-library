@@ -32,17 +32,13 @@ module.exports = {
           ".primary-fade": {
             "background-color": "#8AB4F8",
           },
-          ".primary-focus": {
-            "background-color": "#1A73E8",
-          },
+          "primary-focus": "#1A73E8",
           secondary: "#24C1E0",
           ".secondary-fade": {
             "background-color": "#78D9EC",
           },
-          ".secondary-focus": {
-            "background-color": "#12B5CB",
-          },
-          accent: "#D93025",
+          "secondary-focus": "#12B5CB",
+          accent: "#DDDDD",
           "accent-fade": {
             "background-color": "#FCE8E6",
           },
@@ -56,7 +52,7 @@ module.exports = {
           "success-fade": {
             "background-color": "#E6F4EA",
           },
-          warning: "#F9Ab00",
+          warning: "#F9AB00",
           "warning-fade": {
             "background-color": "#FEF7E0",
           },
