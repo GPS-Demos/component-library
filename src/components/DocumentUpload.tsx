@@ -99,16 +99,16 @@ const DocumentUpload = ({
           <p
             className={classNames(
               fileUploadStatus === FileStatus.Failed
-                ? "text-error"
+                ? "text-error-content"
                 : fileUploadStatus === FileStatus.Success
-                ? "text-success"
+                ? "text-success-content"
                 : "text-base-content",
               "pt-1 text-sm font-semibold",
             )}
           >
             {filesLabel}
           </p>
-          <p className="text-base-content pt-1 text-sm font-semibol mt-2">
+          <p className="text-base-content pt-1 text-sm font-semibol mt-2 font-semibold text-dim">
             {label}
           </p>
         </div>

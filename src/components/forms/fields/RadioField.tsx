@@ -32,10 +32,10 @@ const RadioField: React.FC<IRadioFieldProps> = ({
             return (
               <label
                 className={classNames(
-                  "flex gap-2 rounded-md px-2 py-1 border cursor-pointer",
+                  "flex gap-2 rounded-md px-2 py-1 cursor-pointer",
                   values[variable.name] == option.value
-                    ? "border-primary text-content"
-                    : "border-neutral-content text-neutral-content",
+                    ? "border-success-content text-content border-2"
+                    : "border-base-300 text-base-content border",
                 )}
                 key={option.display}
               >
@@ -49,11 +49,11 @@ const RadioField: React.FC<IRadioFieldProps> = ({
                 <span className="w-5 h-5">
                   {values[variable.name] == option.value ? (
                     <span>
-                      <CheckCircleIcon className="w-5 h-auto text-success relative top-0.5" />
+                      <CheckCircleIcon className="w-5 h-auto text-success-content relative top-0.5" />
                     </span>
                   ) : (
                     <span>
-                      <StopCircleIcon className="w-5 h-auto text-neutral-content relative top-0.5" />
+                      <StopCircleIcon className="w-5 h-auto text-base-300 relative top-0.5" />
                     </span>
                   )}
                 </span>

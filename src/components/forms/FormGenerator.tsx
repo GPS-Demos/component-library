@@ -263,7 +263,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
                   )}
                   <button
                     type="submit"
-                    className="btn btn-primary float-right w-32"
+                    className="btn btn-primary text-base-100 float-right w-32"
                     disabled={!formik.isValid || formik.isSubmitting}
                   >
                     {formik.isSubmitting
