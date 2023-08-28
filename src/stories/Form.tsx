@@ -73,7 +73,7 @@ export const Form: React.FC<FormProps> = ({
           ))}
         </div>
       )}
-      <div className="w-full min-h-screen flex justify-center p-2 bg-primary-content rounded-lg">
+      <div className="w-full min-h-screen flex justify-center p-2 bg-neutral rounded-lg">
         <div className="w-full sm:w-4/5 bg-base-100 px-8 py-4 rounded-md">
           <div className="flex justify-between border-b py-1 mb-4">
             <div className="text-md text-slate-500 capitalize">
@@ -81,7 +81,7 @@ export const Form: React.FC<FormProps> = ({
                 ? `${FORM_STEPS_TITLE[progessStep]} ${information}`
                 : title}
             </div>
-            <div className="text-success">{progessValuePercent}%</div>
+            <div className="text-success-content">{progessValuePercent}%</div>
           </div>
           <div className="mx-auto flex w-full sm:w-11/12">
             {formType === "sample" && TEST_NESTED_FORM_DATA.length ? (
