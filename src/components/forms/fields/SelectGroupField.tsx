@@ -10,6 +10,7 @@ import { IFormVariable } from "@/utils/types"
 
 import FieldErrorMessage from "@/components/forms/FieldErrorMessage"
 import { classNames } from "@/utils/dom"
+import { CircleStackIcon } from "@heroicons/react/24/outline"
 
 interface SelectGroupFieldProps {
   variable: IFormVariable
@@ -33,6 +34,7 @@ const SelectGroupField: React.FC<SelectGroupFieldProps> = ({
       const selectedId = event.target.getAttribute("data-id")
       event.preventDefault()
       const selectedType = event.target.checked
+      if (!variable.multiple) values[variable.name] = []
       const { push, remove } = fieldArrayProps
       if (selectedId && selectedType) {
         push(selectedId)
@@ -62,13 +64,13 @@ const SelectGroupField: React.FC<SelectGroupFieldProps> = ({
                         <label
                           key={option.display}
                           className={classNames(
-                            "flex gap-2 rounded-md px-2 py-1 cursor-pointer text-center",
+                            "flex gap-2 rounded-md px-2 py-1 cursor-pointer outline",
                             isChecked(option.value)
-                              ? "border-primary text-content border-2"
-                              : "border-base-300 text-base-content border",
+                              ? "outline-primary text-primary"
+                              : "outline-base-300 text-base-content",
                           )}
                         >
-                          <div className="w-full">
+                          <div className="w-full flex-wrap justify-center items-center">
                             <Field
                               type="checkbox"
                               className="checkbox checkbox-sm hidden"
@@ -76,9 +78,22 @@ const SelectGroupField: React.FC<SelectGroupFieldProps> = ({
                               onChange={onSelectValues(fieldArrayProps)}
                               checked={isChecked(option.value)}
                             />
-                            <span className="relative -top-0.5">
-                              {option.display}
-                            </span>
+
+                            <div className="w-full text-center">
+                              <CircleStackIcon
+                                className={classNames(
+                                  "w-8 h-auto inline-block place-items-center",
+                                  isChecked(option.value)
+                                    ? " text-primary"
+                                    : "text-base-200",
+                                )}
+                              />
+                            </div>
+                            <div className="w-full">
+                              <span className="text-content">
+                                {option.display}
+                              </span>
+                            </div>
                           </div>
                         </label>
                       )

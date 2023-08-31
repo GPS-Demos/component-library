@@ -34,8 +34,8 @@ const DateField: React.FC<IDateFieldProps> = ({
       <div className="form-control" key={variable.name}>
         <div className="w-full">
           <div className="join w-full">
-            <div className="join-item border border-base-200 rounded-l-lg flex justify-center items-center px-1">
-              <CalendarIcon className="w-5 h-auto align-middle" />
+            <div className="join-item border border-base-200 rounded-l-lg flex justify-center items-center px-2">
+              <CalendarIcon className="w-6 h-6 align-middle" />
             </div>
             <DatePicker
               selected={selectedDate}

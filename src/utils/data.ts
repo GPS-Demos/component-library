@@ -218,11 +218,12 @@ export const TEST_NESTED_FORM_DATA: IFormVariable[] = [
   },
   {
     name: "selectGroup",
-    display: "Select Multiple from the options",
+    display: "Select from the options",
     type: "selectgroup",
     description: "",
     default: [],
     required: false,
+    multiple: false,
     options: [
       { display: "Group1", value: 1 },
       { display: "Group2", value: 2 },
