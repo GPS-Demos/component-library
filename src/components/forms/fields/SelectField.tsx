@@ -35,7 +35,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
           <option value="">{select}</option>
           {variable.options?.map((option) => {
             return (
-              <option key={option.display} value={option.display}>
+              <option key={option.display} value={option.value as string}>
                 {option.display}
               </option>
             )

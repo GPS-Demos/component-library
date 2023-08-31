@@ -43,7 +43,7 @@ export const formValidationSchema = (variableList: IFormVariable[]) => {
                 )
             : yup
                 .string()
-                .min(4, "Too Short!")
+                .min(1, "Too Short!")
                 .max(
                   formValidationData[variable.type] === "string" ? 20 : 180,
                   "Too Long!",

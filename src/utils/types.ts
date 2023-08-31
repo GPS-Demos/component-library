@@ -10,6 +10,8 @@ const FIELD_TYPE = [
   "file",
   "radio",
   "dob",
+  "buttongroup",
+  "selectgroup",
 ] as const
 
 export const fieldType = z.enum(FIELD_TYPE)

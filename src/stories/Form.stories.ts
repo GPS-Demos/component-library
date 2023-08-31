@@ -33,6 +33,13 @@ export const Text: Story = {
   },
 }
 
+export const NumberText: Story = {
+  args: {
+    formType: "number",
+    title: "Number Text",
+  },
+}
+
 export const Select: Story = {
   args: {
     formType: "select",
@@ -58,6 +65,27 @@ export const Radio: Story = {
   args: {
     formType: "radio",
     title: "Radio",
+  },
+}
+
+export const ButtonGroup: Story = {
+  args: {
+    formType: "buttongroup",
+    title: "Button Group",
+  },
+}
+
+export const SelectGroup: Story = {
+  args: {
+    formType: "selectgroup",
+    title: "Select Group",
+  },
+}
+
+export const Date: Story = {
+  args: {
+    formType: "dob",
+    title: "Date",
   },
 }
 
