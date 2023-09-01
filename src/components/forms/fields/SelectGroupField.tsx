@@ -58,7 +58,7 @@ const SelectGroupField: React.FC<SelectGroupFieldProps> = ({
             return (
               <>
                 <div className="mt-1 w-full">
-                  <div className="flex gap-2">
+                  <div className="flex gap-4">
                     {variable.options?.map((option) => {
                       return (
                         <label
@@ -78,17 +78,18 @@ const SelectGroupField: React.FC<SelectGroupFieldProps> = ({
                               onChange={onSelectValues(fieldArrayProps)}
                               checked={isChecked(option.value)}
                             />
-
-                            <div className="w-full text-center">
-                              <CircleStackIcon
-                                className={classNames(
-                                  "w-8 h-auto inline-block place-items-center",
-                                  isChecked(option.value)
-                                    ? " text-primary"
-                                    : "text-base-200",
-                                )}
-                              />
-                            </div>
+                            {variable.icons && (
+                              <div className="w-full text-center">
+                                <CircleStackIcon
+                                  className={classNames(
+                                    "w-8 h-auto inline-block place-items-center",
+                                    isChecked(option.value)
+                                      ? " text-primary"
+                                      : "text-base-200",
+                                  )}
+                                />
+                              </div>
+                            )}
                             <div className="w-full">
                               <span className="text-content">
                                 {option.display}

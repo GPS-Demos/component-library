@@ -25,6 +25,7 @@ interface FieldsCreatorProps {
   handleValueChange: Function
   handleTargetValueChange: Function
   formikProps: FormikContextType<any>
+  formType: unknown
 }
 
 const FieldsCreator: React.FC<FieldsCreatorProps> = ({
@@ -34,6 +35,7 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
   handleValueChange,
   handleTargetValueChange,
   formikProps,
+  formType,
 }) => {
   const sortedList = sortBy(variableList, "order")
   const groupSortedList = groupByOrderVariables(sortedList)
@@ -65,7 +67,7 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
 
   useEffect(() => {
     if (Object.keys(groupSortedList).length > 1) {
-      scrollToLast()
+      if (formType === "sample") scrollToLast()
     }
   }, [groupSortedList])
 

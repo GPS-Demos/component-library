@@ -73,6 +73,7 @@ export const FormVariable = z.object({
   fileLabel: z.string().optional(),
   multiple: z.boolean().default(false).optional(),
   accept: z.string().optional(),
+  icons: z.boolean().default(false).optional(),
 })
 
 //const SubElement = z.object({subelement: z.array(FormVariable) }).optional()

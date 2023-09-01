@@ -4,7 +4,6 @@ import { IFormVariable } from "@/utils/types"
 
 import FieldErrorMessage from "@/components/forms/FieldErrorMessage"
 import { classNames } from "@/utils/dom"
-import { CheckCircleIcon, StopCircleIcon } from "@heroicons/react/24/outline"
 
 interface IButtonGroupFieldProps {
   variable: IFormVariable
@@ -36,7 +35,8 @@ const ButtonGroupField: React.FC<IButtonGroupFieldProps> = ({
                   type="radio"
                   className={classNames(
                     "join-item btn btn-sm",
-                    values[variable.name] == option.value
+                    values[variable.name] ==
+                      (option.value || option.value?.toString())
                       ? "btn-primary text-base-100"
                       : "",
                   )}
