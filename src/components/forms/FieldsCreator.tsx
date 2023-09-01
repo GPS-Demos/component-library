@@ -4,7 +4,7 @@ import { IFormVariable } from "@/utils/types"
 import { groupByOrderVariables } from "@/utils/forms"
 
 import StringField from "@/components/forms/fields/StringField"
-// import NumberField from "@/components/forms/fields/NumberField"
+import NumberField from "@/components/forms/fields/NumberField"
 import BooleanField from "@/components/forms/fields/BooleanField"
 import SelectField from "@/components/forms/fields/SelectField"
 // import ListField from "@/components/forms/fields/ListField"
@@ -12,6 +12,8 @@ import FilesField from "@/components/forms/fields/FilesField"
 import RadioField from "@/components/forms/fields/RadioField"
 import DateField from "@/components/forms/fields/DateField"
 import MultiSelectField from "@/components/forms/fields/MultiSelectField"
+import ButtonGroupField from "@/components/forms/fields/ButtonGroupField"
+import SelectGroupField from "@/components/forms/fields/SelectGroupField"
 
 import { useEffect, useState, useRef } from "react"
 import { FormikContextType } from "formik"
@@ -23,6 +25,7 @@ interface FieldsCreatorProps {
   handleValueChange: Function
   handleTargetValueChange: Function
   formikProps: FormikContextType<any>
+  formType: unknown
 }
 
 const FieldsCreator: React.FC<FieldsCreatorProps> = ({
@@ -32,6 +35,7 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
   handleValueChange,
   handleTargetValueChange,
   formikProps,
+  formType,
 }) => {
   const sortedList = sortBy(variableList, "order")
   const groupSortedList = groupByOrderVariables(sortedList)
@@ -63,7 +67,7 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
 
   useEffect(() => {
     if (Object.keys(groupSortedList).length > 1) {
-      scrollToLast()
+      if (formType === "sample") scrollToLast()
     }
   }, [groupSortedList])
 
@@ -77,8 +81,14 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
             formikProps={formikProps}
           />
         )
-      // case "number":
-      //   return <NumberField variable={variable} />
+      case "number":
+        return (
+          <NumberField
+            variable={variable}
+            onChangeHandle={onChangeHandle}
+            formikProps={formikProps}
+          />
+        )
       case "bool":
         return (
           <BooleanField
@@ -131,6 +141,22 @@ const FieldsCreator: React.FC<FieldsCreatorProps> = ({
             deleteMessage="Delete file message"
             deleteText="Delete"
             close="Close"
+            formikProps={formikProps}
+          />
+        )
+      case "buttongroup":
+        return (
+          <ButtonGroupField
+            variable={variable}
+            onChangeHandle={handleChange}
+            formikProps={formikProps}
+          />
+        )
+      case "selectgroup":
+        return (
+          <SelectGroupField
+            variable={variable}
+            onChangeHandle={handleTargetValueChange}
             formikProps={formikProps}
           />
         )

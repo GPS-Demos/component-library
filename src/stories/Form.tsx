@@ -19,6 +19,9 @@ import {
   ExclamationCircleIcon,
 } from "@heroicons/react/24/outline"
 
+/**
+ * Form UI component for user interaction
+ */
 export const Form: React.FC<FormProps> = ({
   formType,
   title,
@@ -47,80 +50,92 @@ export const Form: React.FC<FormProps> = ({
   }
 
   return (
-    <div className="w-full min-h-screen justify-center p-4">
-      {formType === "sample" && (
-        <div className="flex gap-0 mb-4">
-          {FORM_STEPS_TITLE.map((stepTitle: string, index: number) => (
-            <a
-              key={stepTitle}
-              className={classNames(
-                "w-full",
-                progessStep === index ? "" : "border-b",
-              )}
-            >
-              <span
+    <>
+      {formType === "sample" ? (
+        <div className="w-full min-h-screen justify-center p-4">
+          <div className="flex gap-0 mb-4">
+            {FORM_STEPS_TITLE.map((stepTitle: string, index: number) => (
+              <a
+                key={stepTitle}
                 className={classNames(
-                  "w-full flex justify-items-center items-center py-2 font-medium capitalize",
-                  progessStep === index
-                    ? "border-b-2 border-primary text-primary"
-                    : "text-neutral-content",
-                  index !== 0 ? "px-6" : "",
+                  "w-full",
+                  progessStep === index ? "" : "border-b",
                 )}
               >
-                <CheckCircleIcon className="w-5 h-4" /> {stepTitle}
-              </span>
-            </a>
-          ))}
-        </div>
-      )}
-      <div className="w-full min-h-screen flex justify-center p-2 bg-primary-content rounded-lg">
-        <div className="w-full sm:w-4/5 bg-base-100 px-8 py-4 rounded-md">
-          <div className="flex justify-between border-b py-1 mb-4">
-            <div className="text-md text-slate-500 capitalize">
-              {formType === "sample"
-                ? `${FORM_STEPS_TITLE[progessStep]} ${information}`
-                : title}
+                <span
+                  className={classNames(
+                    "w-full flex justify-items-center items-center py-2 font-medium capitalize",
+                    progessStep === index
+                      ? "border-b-2 border-primary text-primary"
+                      : "text-neutral-content",
+                    index !== 0 ? "px-6" : "",
+                  )}
+                >
+                  <CheckCircleIcon className="w-5 h-4" /> {stepTitle}
+                </span>
+              </a>
+            ))}
+          </div>
+          <div className="w-full min-h-screen flex justify-center p-2 bg-neutral rounded-lg">
+            <div className="w-full sm:w-4/5 bg-base-100 px-8 py-4 rounded-md">
+              <div className="flex justify-between border-b py-1 mb-4">
+                <div className="text-md text-slate-500 capitalize">
+                  {formType === "sample"
+                    ? `${FORM_STEPS_TITLE[progessStep]} ${information}`
+                    : title}
+                </div>
+                <div className="text-success-content">
+                  {progessValuePercent}%
+                </div>
+              </div>
+              <div className="mx-auto flex w-full sm:w-11/12">
+                {TEST_NESTED_FORM_DATA.length ? (
+                  <FormGenerator
+                    formVariables={TEST_NESTED_FORM_DATA}
+                    initialFormData={initialFormData}
+                    handleProgress={handleProgress}
+                    handleCurrentStep={handleCurrentStep}
+                    submit="Submit"
+                    next="Next"
+                    previous="Previous"
+                    cancel="Cancel"
+                    submitting="Submitting"
+                    formType={formType}
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
-            <div className="text-success">{progessValuePercent}%</div>
-          </div>
-          <div className="mx-auto flex w-full sm:w-11/12">
-            {formType === "sample" && TEST_NESTED_FORM_DATA.length ? (
-              <FormGenerator
-                formVariables={TEST_NESTED_FORM_DATA}
-                initialFormData={initialFormData}
-                handleProgress={handleProgress}
-                handleCurrentStep={handleCurrentStep}
-                submit="Submit"
-                next="Next"
-                previous="Previous"
-                cancel="Cancel"
-                submitting="Submitting"
-              />
-            ) : FORM_DATA_BY_TYPE.length ? (
-              <FormGenerator
-                formVariables={FORM_DATA_BY_TYPE}
-                initialFormData={initialFormData}
-                handleProgress={handleProgress}
-                handleCurrentStep={handleCurrentStep}
-                submit="Submit"
-                next="Next"
-                previous="Previous"
-                cancel="Cancel"
-                submitting="Submitting"
-              />
-            ) : (
-              <></>
-            )}
+            <div className="w-full sm:w-96 p-4">
+              <div className="flex justify-between border-b py-1 items-center">
+                <div className="text-md text-slate-500">
+                  {benefitsAvailable}
+                </div>
+                <ExclamationCircleIcon className="w-5 h-5" />
+              </div>
+              <p className="text-sm mt-2">{benefitsDescription}</p>
+            </div>
           </div>
         </div>
-        <div className="w-full sm:w-96 p-4">
-          <div className="flex justify-between border-b py-1 items-center">
-            <div className="text-md text-slate-500">{benefitsAvailable}</div>
-            <ExclamationCircleIcon className="w-5 h-5" />
-          </div>
-          <p className="text-sm mt-2">{benefitsDescription}</p>
+      ) : FORM_DATA_BY_TYPE.length ? (
+        <div className="w-full justify-center p-6">
+          <FormGenerator
+            formVariables={FORM_DATA_BY_TYPE}
+            initialFormData={initialFormData}
+            handleProgress={handleProgress}
+            handleCurrentStep={handleCurrentStep}
+            submit="Submit"
+            next="Next"
+            previous="Previous"
+            cancel="Cancel"
+            submitting="Submitting"
+            formType={formType}
+          />
         </div>
-      </div>
-    </div>
+      ) : (
+        <></>
+      )}
+    </>
   )
 }

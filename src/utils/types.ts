@@ -10,6 +10,8 @@ const FIELD_TYPE = [
   "file",
   "radio",
   "dob",
+  "buttongroup",
+  "selectgroup",
 ] as const
 
 export const fieldType = z.enum(FIELD_TYPE)
@@ -71,6 +73,7 @@ export const FormVariable = z.object({
   fileLabel: z.string().optional(),
   multiple: z.boolean().default(false).optional(),
   accept: z.string().optional(),
+  icons: z.boolean().default(false).optional(),
 })
 
 //const SubElement = z.object({subelement: z.array(FormVariable) }).optional()

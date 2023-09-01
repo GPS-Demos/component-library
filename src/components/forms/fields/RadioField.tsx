@@ -27,15 +27,16 @@ const RadioField: React.FC<IRadioFieldProps> = ({
   return (
     <FormikProvider value={formikProps}>
       <div className="form-control" key={variable.name}>
-        <div className="flex gap-2">
+        <div className="flex gap-4">
           {variable.options?.map((option) => {
             return (
               <label
                 className={classNames(
-                  "flex gap-2 rounded-md px-2 py-1 border cursor-pointer",
-                  values[variable.name] == option.value
-                    ? "border-primary text-content"
-                    : "border-neutral-content text-neutral-content",
+                  "flex gap-2 rounded-md px-2 py-1 cursor-pointer outline",
+                  values[variable.name] ==
+                    (option.value || option.value?.toString())
+                    ? "outline-primary text-primary"
+                    : "outline-base-300 text-base-content",
                 )}
                 key={option.display}
               >
@@ -49,11 +50,11 @@ const RadioField: React.FC<IRadioFieldProps> = ({
                 <span className="w-5 h-5">
                   {values[variable.name] == option.value ? (
                     <span>
-                      <CheckCircleIcon className="w-5 h-auto text-success relative top-0.5" />
+                      <CheckCircleIcon className="w-5 h-auto text-primary relative top-0.5" />
                     </span>
                   ) : (
                     <span>
-                      <StopCircleIcon className="w-5 h-auto text-neutral-content relative top-0.5" />
+                      <StopCircleIcon className="w-5 h-auto text-base-300 relative top-0.5" />
                     </span>
                   )}
                 </span>
