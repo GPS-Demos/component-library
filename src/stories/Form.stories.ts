@@ -6,6 +6,7 @@ import { Form } from "./Form"
 const meta = {
   title: "Form",
   component: Form,
+  tags: ["autodocs"],
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout
     layout: "fullscreen",
@@ -30,6 +31,13 @@ export const Text: Story = {
   args: {
     formType: "string",
     title: "Text",
+  },
+}
+
+export const NumberText: Story = {
+  args: {
+    formType: "number",
+    title: "Number Text",
   },
 }
 
@@ -58,6 +66,27 @@ export const Radio: Story = {
   args: {
     formType: "radio",
     title: "Radio",
+  },
+}
+
+export const ButtonGroup: Story = {
+  args: {
+    formType: "buttongroup",
+    title: "Button Group",
+  },
+}
+
+export const SelectGroup: Story = {
+  args: {
+    formType: "selectgroup",
+    title: "Select Group",
+  },
+}
+
+export const Date: Story = {
+  args: {
+    formType: "dob",
+    title: "Date",
   },
 }
 

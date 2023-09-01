@@ -41,11 +41,11 @@ const FilesField: React.FC<IFilesFieldProps> = ({
   const fileNameContains: IFileFormat[] = []
   if (updatedFiles) {
     if (Array.isArray(updatedFiles)) {
-      updatedFiles.forEach(async (value: string) => {
-        const fileName = fileNameByPath(value)
+      updatedFiles.forEach(async (value: File) => {
+        const fileName = fileNameByPath(value.name)
         const supportingFileObj = {
           fileName: fileName,
-          fileURL: value,
+          fileURL: value.name,
           fieldName: variable.name,
         }
         if (fileName) fileNameContains.push(supportingFileObj)
@@ -63,11 +63,8 @@ const FilesField: React.FC<IFilesFieldProps> = ({
   }
 
   const handleFiles = ({ files }: { files: FileList; type: string }) => {
-    setFieldValue("files", Array.from(files))
-    onChangeHandle(variable.name, files[0]?.name)
-    if (variable.required) {
-      setFieldValue(variable.name, files[0]?.name)
-    }
+    onChangeHandle(variable.name, Array.from(files))
+    setFieldValue(variable.name, Array.from(files))
   }
 
   const handleClick = (state: boolean, fileData: IFileFormat) => {
@@ -121,7 +118,7 @@ const FilesField: React.FC<IFilesFieldProps> = ({
         <div className="mt-1 text-xs text-error">
           <ErrorMessage name={variable.name} />
         </div>
-        <div>
+        {/* <div>
           {fileNameContains.map((value: IFileFormat) => {
             return (
               <div
@@ -136,7 +133,7 @@ const FilesField: React.FC<IFilesFieldProps> = ({
               </div>
             )
           })}
-        </div>
+        </div> */}
         <div className="text-faint mt-1 text-sm">{variable.description}</div>
         {modal && renderModal()}
       </div>
