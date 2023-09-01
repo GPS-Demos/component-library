@@ -33,7 +33,8 @@ const RadioField: React.FC<IRadioFieldProps> = ({
               <label
                 className={classNames(
                   "flex gap-2 rounded-md px-2 py-1 cursor-pointer outline",
-                  values[variable.name] == option.value
+                  values[variable.name] ==
+                    (option.value || option.value?.toString())
                     ? "outline-primary text-primary"
                     : "outline-base-300 text-base-content",
                 )}
