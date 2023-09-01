@@ -21,6 +21,7 @@ interface IFormGeneratorProps {
   previous: string
   cancel: string
   submitting: string
+  formType: unknown
 }
 
 type ITargetName = string
@@ -40,6 +41,7 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
   previous,
   cancel,
   submitting,
+  formType,
 }) => {
   // const navigate = useNavigate()
   // const { t } = useTranslation()
@@ -176,7 +178,11 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
     const firstLoadVars = allNonDependsElement.filter(
       (items) => items.order === allNonDependsElement[0].order,
     )
-    setCurrentVarsDataAppend(firstLoadVars)
+    if (formType === "sample") {
+      setCurrentVarsDataAppend(firstLoadVars)
+    } else {
+      setCurrentVarsDataAppend(allNonDependsElement)
+    }
   }, [allNonDependsElement.length, step])
 
   const stepPercentage = Math.round(
@@ -237,11 +243,12 @@ const FormGenerator: React.FC<IFormGeneratorProps> = ({
                   handleValueChange={handleValueChange}
                   handleTargetValueChange={handleTargetValueChange}
                   formikProps={formik}
+                  formType={formType}
                 />
               ) : (
                 <></>
               )}
-              {stepPercentage === 100 && (
+              {stepPercentage === 100 && formType === "sample" && (
                 <div className="flex-row justify-center gap-x-4">
                   {step > 0 ? (
                     <button

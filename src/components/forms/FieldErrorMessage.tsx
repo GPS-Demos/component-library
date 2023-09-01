@@ -8,7 +8,7 @@ const FieldErrorMessage: React.FC<IFieldErrorMessageProps> = ({
   variableName,
 }) => {
   return (
-    <div className="mt-1 text-xs text-error">
+    <div className="mt-1 text-xs text-error-content">
       <ErrorMessage name={variableName} />
     </div>
   )

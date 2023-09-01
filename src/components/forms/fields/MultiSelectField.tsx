@@ -76,7 +76,7 @@ const MultiSelectField: React.FC<MultiSelectFieldProps> = ({
                               <label className="text-left cursor-pointer">
                                 <input
                                   type="checkbox"
-                                  className="checkbox checkbox-primary checkbox-sm"
+                                  className="checkbox checkbox-sm"
                                   data-id={option.value}
                                   onChange={onSelectValues(fieldArrayProps)}
                                   checked={isChecked(option.value)}
