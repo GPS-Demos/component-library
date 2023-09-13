@@ -25,14 +25,14 @@ module.exports = {
         light: {
           ...require("daisyui/src/theming/themes")["[data-theme=light]"],
           "base-100": "#ffffff",
-          // "base-200": "#D6D6D6",
-          // "base-300": "#AEB0B3",
+          "base-200": "#D6D6D6",
+          "base-300": "#AEB0B3",
           // "base-content": "#5F6368",
 
-          primary: "#24c1e0",
+          primary: "#4285F4",
           // "primary-focus": "#1A73E8",
           // "primary-content": "#4285F4",
-          secondary: "",
+          secondary: "#24c1e0",
           // "secondary-focus": "#12B5CB",
           // "secondary-content": "#24C1E0",
           accent: "#2D405E",
